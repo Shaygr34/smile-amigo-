@@ -29,24 +29,24 @@ function LaneCard({ data }: { data: LaneCardData }) {
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         ) : (
-          <div className="w-full h-full bg-sky-light flex items-center justify-center">
-            <span className="text-text-muted text-h3">{data.headline}</span>
+          <div className="w-full h-full bg-gray-light flex items-center justify-center">
+            <span className="text-gray-mid text-h3">{data.headline}</span>
           </div>
         )}
       </div>
 
       {/* Content */}
       <div className="p-6 lg:p-8">
-        <h2 className="text-h3 font-heading font-bold text-ocean-deep">
+        <h2 className="text-h3 font-heading font-bold text-black">
           {data.headline}
         </h2>
         <ul className="mt-4 space-y-2">
           {data.bullets.map((bullet, i) => (
             <li
               key={i}
-              className="flex items-start gap-2 text-body text-text-secondary"
+              className="flex items-start gap-2 text-body text-gray-mid"
             >
-              <span className="text-golden mt-1.5 text-xs" aria-hidden="true">
+              <span className="text-accent mt-1.5 text-xs" aria-hidden="true">
                 &#9679;
               </span>
               {bullet}

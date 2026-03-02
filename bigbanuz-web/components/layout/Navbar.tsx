@@ -57,7 +57,7 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                 />
               ) : null}
               <span className={`text-xl lg:text-2xl font-bold tracking-tight transition-colors duration-normal ${
-                scrolled ? "text-ocean-deep" : "text-white"
+                scrolled ? "text-black" : "text-white"
               }`}>
                 Smile Amigo
               </span>
@@ -70,7 +70,7 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                   key={link.href}
                   href={link.href}
                   className={`text-small font-medium transition-colors duration-normal hover:opacity-80 ${
-                    scrolled ? "text-ocean-deep" : "text-white"
+                    scrolled ? "text-black" : "text-white"
                   }`}
                 >
                   {link.label}
@@ -81,7 +81,7 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleWhatsAppClick}
-                className="inline-flex items-center px-5 py-2.5 bg-golden text-ocean-deep text-small font-medium rounded-md hover:bg-[#c4955e] transition-colors duration-normal focus:outline-none focus:ring-2 focus:ring-golden focus:ring-offset-2"
+                className="inline-flex items-center px-5 py-2.5 bg-accent text-accent-text text-small font-medium rounded-md hover:bg-accent-hover transition-colors duration-normal focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
               >
                 Get in Touch
               </a>
@@ -90,14 +90,14 @@ export default function Navbar({ logoUrl }: NavbarProps) {
             {/* Mobile Hamburger */}
             <button
               type="button"
-              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-ocean-mid"
+              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
               aria-expanded={mobileOpen}
             >
               <svg
                 className={`w-6 h-6 transition-colors ${
-                  scrolled ? "text-ocean-deep" : "text-white"
+                  scrolled ? "text-black" : "text-white"
                 }`}
                 fill="none"
                 stroke="currentColor"

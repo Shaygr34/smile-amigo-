@@ -47,15 +47,15 @@ export default function CollabForm() {
   if (submitted) {
     return (
       <div className="text-center py-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-golden/20 text-golden mb-4">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 text-accent mb-4">
           <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-h3 font-heading font-bold text-ocean-deep mb-2">
+        <h3 className="text-h3 font-heading font-bold text-black mb-2">
           Thank you!
         </h3>
-        <p className="text-body text-text-secondary">
+        <p className="text-body text-gray-mid">
           I&apos;ll get back to you soon. In the meantime, feel free to reach out on WhatsApp.
         </p>
       </div>
@@ -68,7 +68,7 @@ export default function CollabForm() {
         <div>
           <label
             htmlFor="collab-name"
-            className="block text-small font-medium text-ocean-deep mb-1"
+            className="block text-small font-medium text-black mb-1"
           >
             Name *
           </label>
@@ -77,14 +77,14 @@ export default function CollabForm() {
             id="collab-name"
             name="name"
             required
-            className="w-full px-4 py-3 rounded-md border border-sky-light bg-white-pure text-ocean-deep placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-golden focus:border-transparent"
+            className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
             placeholder="Your name"
           />
         </div>
         <div>
           <label
             htmlFor="collab-email"
-            className="block text-small font-medium text-ocean-deep mb-1"
+            className="block text-small font-medium text-black mb-1"
           >
             Email *
           </label>
@@ -93,7 +93,7 @@ export default function CollabForm() {
             id="collab-email"
             name="email"
             required
-            className="w-full px-4 py-3 rounded-md border border-sky-light bg-white-pure text-ocean-deep placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-golden focus:border-transparent"
+            className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
             placeholder="your@email.com"
           />
         </div>
@@ -102,7 +102,7 @@ export default function CollabForm() {
       <div>
         <label
           htmlFor="collab-company"
-          className="block text-small font-medium text-ocean-deep mb-1"
+          className="block text-small font-medium text-black mb-1"
         >
           Company / Brand / Individual
         </label>
@@ -110,7 +110,7 @@ export default function CollabForm() {
           type="text"
           id="collab-company"
           name="company"
-          className="w-full px-4 py-3 rounded-md border border-sky-light bg-white-pure text-ocean-deep placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-golden focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
           placeholder="Your brand or company name"
         />
       </div>
@@ -118,7 +118,7 @@ export default function CollabForm() {
       <div>
         <label
           htmlFor="collab-project"
-          className="block text-small font-medium text-ocean-deep mb-1"
+          className="block text-small font-medium text-black mb-1"
         >
           Project Description *
         </label>
@@ -127,7 +127,7 @@ export default function CollabForm() {
           name="projectDescription"
           required
           rows={4}
-          className="w-full px-4 py-3 rounded-md border border-sky-light bg-white-pure text-ocean-deep placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-golden focus:border-transparent resize-y"
+          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
           placeholder="Tell me about your project..."
         />
       </div>
@@ -135,14 +135,14 @@ export default function CollabForm() {
       <div>
         <label
           htmlFor="collab-budget"
-          className="block text-small font-medium text-ocean-deep mb-1"
+          className="block text-small font-medium text-black mb-1"
         >
           Budget Range
         </label>
         <select
           id="collab-budget"
           name="budgetRange"
-          className="w-full px-4 py-3 rounded-md border border-sky-light bg-white-pure text-ocean-deep focus:outline-none focus:ring-2 focus:ring-golden focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
         >
           <option value="">Select a range (optional)</option>
           {BUDGET_OPTIONS.map((opt) => (

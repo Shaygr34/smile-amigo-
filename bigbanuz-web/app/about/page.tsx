@@ -29,10 +29,10 @@ export default function AboutPage() {
       {/* Story Section */}
       <section className="py-section">
         <div className="max-w-text mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-h2 font-heading font-bold text-ocean-deep mb-8">
+          <h2 className="text-h2 font-heading font-bold text-black mb-8">
             The Story
           </h2>
-          <div className="space-y-6 text-body text-text-secondary leading-relaxed">
+          <div className="space-y-6 text-body text-gray-mid leading-relaxed">
             <p>
               I&apos;m Amit Banuz — a photographer who found his calling through
               an unconventional path. After serving as a combat soldier in the
@@ -57,9 +57,9 @@ export default function AboutPage() {
       </section>
 
       {/* Locations Section */}
-      <section className="py-section bg-sky-light">
+      <section className="py-section bg-gray-light">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-12">
+          <h2 className="text-h2 font-heading font-bold text-black text-center mb-12">
             Where I Shoot
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -68,10 +68,10 @@ export default function AboutPage() {
                 key={loc.name}
                 className="bg-white-pure rounded-lg p-6 shadow-card text-center"
               >
-                <h3 className="text-h3 font-heading font-semibold text-ocean-deep mb-2">
+                <h3 className="text-h3 font-heading font-semibold text-black mb-2">
                   {loc.name}
                 </h3>
-                <p className="text-small text-text-secondary">
+                <p className="text-small text-gray-mid">
                   {loc.description}
                 </p>
               </div>
@@ -83,10 +83,10 @@ export default function AboutPage() {
       {/* Approach Section */}
       <section className="py-section">
         <div className="max-w-text mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-h2 font-heading font-bold text-ocean-deep mb-8">
+          <h2 className="text-h2 font-heading font-bold text-black mb-8">
             My Approach
           </h2>
-          <div className="space-y-6 text-body text-text-secondary leading-relaxed">
+          <div className="space-y-6 text-body text-gray-mid leading-relaxed">
             <p>
               I shoot in-water for surf — getting as close to the action as
               possible. For events, I blend into the crowd to capture natural
@@ -107,7 +107,7 @@ export default function AboutPage() {
         whatsappLabel="Get in Touch"
         emailLabel="View Events"
         emailHref="/events"
-        instagramLabel="Follow @bigbanuz"
+        instagramLabel="Follow @smileamigo.photo"
         instagramHref={INSTAGRAM_URL}
       />
     </>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
@@ -13,17 +13,23 @@ const inter = Inter({
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Amit Banuz — Surf & Event Photographer | Smile Amigo",
+  title: "Smile Amigo — Surf & Event Photography by Amit Banuz",
   description:
-    "Professional surf and event photography by Amit Banuz. Based in Israel, shooting worldwide. Event packages with instant magnet prints. Surf photography across Philippines, Sri Lanka, Israel, and Australia.",
+    "Premium surf photography and event coverage with instant magnet prints. Based in Israel, shooting worldwide. Philippines · Sri Lanka · Australia.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.com"
   ),
   openGraph: {
-    title: "Amit Banuz — Surf & Event Photographer",
+    title: "Smile Amigo — Surf & Event Photography by Amit Banuz",
     description:
-      "Professional surf and event photography by Amit Banuz. Event packages with instant magnet prints.",
+      "Premium surf photography and event coverage with instant magnet prints. Based in Israel, shooting worldwide.",
     type: "website",
     locale: "en_US",
     siteName: "Smile Amigo",
@@ -39,14 +45,14 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Smile Amigo — Amit Banuz Photography",
-  description:
-    "Professional surf and event photography by Amit Banuz. Event packages with instant magnet prints.",
+  "@type": "Person",
+  name: "Amit Banuz",
+  alternateName: "Smile Amigo",
+  jobTitle: "Photographer",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.com",
   image: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.com"}/og-default.jpg`,
-  sameAs: ["https://instagram.com/bigbanuz"],
-  priceRange: "$$",
+  sameAs: ["https://instagram.com/smileamigo.photo"],
+  knowsAbout: ["Surf Photography", "Event Photography", "Photo Magnets"],
   address: {
     "@type": "PostalAddress",
     addressCountry: "IL",
@@ -73,7 +79,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="font-body antialiased">
         <script
           type="application/ld+json"

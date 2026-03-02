@@ -33,23 +33,23 @@ export default function PackageCard({
     <div
       className={`relative bg-white-pure rounded-lg p-6 lg:p-8 flex flex-col transition-shadow duration-normal ${
         featured
-          ? "shadow-card-hover ring-2 ring-golden"
+          ? "shadow-card-hover ring-2 ring-accent"
           : "shadow-card hover:shadow-card-hover"
       }`}
     >
       {featured && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-golden text-ocean-deep text-caption font-bold px-3 py-1 rounded-full">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-text text-caption font-bold px-3 py-1 rounded-full">
           POPULAR
         </div>
       )}
 
       {/* Package name */}
-      <h3 className="text-h3 font-heading font-bold text-ocean-deep">
+      <h3 className="text-h3 font-heading font-bold text-black">
         {title}
       </h3>
 
       {/* Price */}
-      <p className="mt-3 text-h1 font-mono font-bold text-ocean-deep">
+      <p className="mt-3 text-h1 font-mono font-bold text-black">
         {priceDisplay}
       </p>
 
@@ -58,10 +58,10 @@ export default function PackageCard({
         {inclusions.map((item, i) => (
           <li
             key={i}
-            className="flex items-start gap-2 text-body text-text-secondary"
+            className="flex items-start gap-2 text-body text-gray-mid"
           >
             <svg
-              className="w-5 h-5 text-golden mt-0.5 shrink-0"
+              className="w-5 h-5 text-accent mt-0.5 shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

@@ -16,7 +16,7 @@ export default function TestimonialCard({
   return (
     <div className="bg-white-pure rounded-lg p-6 lg:p-8 shadow-card">
       {/* Quote */}
-      <blockquote className="text-body text-text-primary italic leading-relaxed">
+      <blockquote className="text-body text-black italic leading-relaxed">
         &ldquo;{quote}&rdquo;
       </blockquote>
 
@@ -31,14 +31,14 @@ export default function TestimonialCard({
             className="rounded-full object-cover"
           />
         ) : (
-          <div className="w-10 h-10 rounded-full bg-sand-warm flex items-center justify-center text-ocean-deep font-bold text-small">
+          <div className="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center text-black font-bold text-small">
             {name.charAt(0).toUpperCase()}
           </div>
         )}
         <div>
-          <p className="text-small font-semibold text-ocean-deep">{name}</p>
+          <p className="text-small font-semibold text-black">{name}</p>
           {context && (
-            <p className="text-caption text-text-muted">{context}</p>
+            <p className="text-caption text-gray-mid">{context}</p>
           )}
         </div>
       </div>

@@ -9,26 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ocean: {
-          deep: "#0B2545",
-          mid: "#13506B",
-        },
-        sky: {
-          light: "#E8F1F5",
-        },
-        sand: {
-          warm: "#F5E6D3",
-        },
-        golden: "#D4A574",
+        black: "#0A0A0A",
+        charcoal: "#1A1A2E",
+        "gray-warm": "#2C2C3A",
+        "gray-mid": "#6B7280",
+        "gray-light": "#F3F4F6",
+        white: "#FAFAFA",
         "white-pure": "#FFFFFF",
-        "text-primary": "#0B2545",
-        "text-secondary": "#4A6FA5",
-        "text-muted": "#8B9DC3",
+        accent: {
+          DEFAULT: "#FACC15",
+          hover: "#EAB308",
+          soft: "#FEF9C3",
+          text: "#0A0A0A",
+        },
+        overlay: {
+          dark: "rgba(10, 10, 10, 0.55)",
+          light: "rgba(10, 10, 10, 0.30)",
+        },
       },
       fontFamily: {
-        heading: ["var(--font-inter)", "system-ui", "sans-serif"],
+        heading: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
         body: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
       },
       fontSize: {
         hero: ["clamp(2.5rem, 5vw, 4.5rem)", { lineHeight: "1.1" }],
@@ -40,7 +41,7 @@ const config: Config = {
         caption: ["0.75rem", { lineHeight: "1.5" }],
       },
       spacing: {
-        "section": "clamp(4rem, 8vw, 8rem)",
+        section: "clamp(4rem, 8vw, 8rem)",
       },
       maxWidth: {
         content: "1200px",
@@ -51,8 +52,8 @@ const config: Config = {
         gallery: "4px",
       },
       boxShadow: {
-        card: "0 1px 3px rgba(11, 37, 69, 0.08)",
-        "card-hover": "0 4px 12px rgba(11, 37, 69, 0.12)",
+        card: "0 1px 3px rgba(10, 10, 10, 0.08)",
+        "card-hover": "0 4px 12px rgba(10, 10, 10, 0.15)",
       },
       borderRadius: {
         sm: "4px",
@@ -71,7 +72,7 @@ const config: Config = {
       },
       backgroundImage: {
         "hero-gradient":
-          "linear-gradient(to top, rgba(11, 37, 69, 0.7) 0%, rgba(11, 37, 69, 0.3) 40%, transparent 100%)",
+          "linear-gradient(to top, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.3) 40%, transparent 100%)",
       },
     },
   },

@@ -1,4 +1,6 @@
-import { groq } from "next-sanity";
+// groq is just a tagged template literal for syntax highlighting
+const groq = (strings: TemplateStringsArray, ...values: unknown[]) =>
+  String.raw({ raw: strings }, ...values);
 
 // Site Settings
 export const siteSettingsQuery = groq`

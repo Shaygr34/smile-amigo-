@@ -164,7 +164,7 @@ export default async function EventsPage() {
         headline="Event Photography & Magnets"
         subline="Premium photos and instant magnet prints for your event"
         ctas={[
-          { label: "Check Availability", href: "https://wa.me/" },
+          { label: "Check Availability", href: "#packages" },
         ]}
       />
 
@@ -175,7 +175,7 @@ export default async function EventsPage() {
       {galleryImages.length > 0 && (
         <section className="py-section">
           <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-8">
+            <h2 className="text-h2 font-heading font-bold text-black text-center mb-8">
               Event Portfolio
             </h2>
             <GalleryGrid images={galleryImages} columns={3} gap="tight" />

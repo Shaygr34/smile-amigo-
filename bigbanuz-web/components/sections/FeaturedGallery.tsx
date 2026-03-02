@@ -12,14 +12,14 @@ export default function FeaturedGallery({ images }: FeaturedGalleryProps) {
   return (
     <section className="py-section">
       <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-8">
+        <h2 className="text-h2 font-heading font-bold text-black text-center mb-8">
           Portfolio
         </h2>
         <GalleryGrid images={images} columns={3} gap="tight" />
         <div className="mt-8 text-center">
           <Link
             href="/surf"
-            className="text-ocean-mid hover:text-golden transition-colors duration-normal font-medium"
+            className="text-gray-warm hover:text-accent transition-colors duration-normal font-medium"
           >
             View Full Portfolio &rarr;
           </Link>

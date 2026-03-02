@@ -39,21 +39,21 @@ const TRUST_ITEMS = [
 
 export default function TrustSection() {
   return (
-    <section className="py-section bg-sky-light">
+    <section className="py-section bg-gray-light">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-12">
+        <h2 className="text-h2 font-heading font-bold text-black text-center mb-12">
           Why Work With Me
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {TRUST_ITEMS.map((item) => (
             <div key={item.title} className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sand-warm text-ocean-deep mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-soft text-black mb-4">
                 {item.icon}
               </div>
-              <h3 className="text-h3 font-heading font-semibold text-ocean-deep mb-2">
+              <h3 className="text-h3 font-heading font-semibold text-black mb-2">
                 {item.title}
               </h3>
-              <p className="text-body text-text-secondary">
+              <p className="text-body text-gray-mid">
                 {item.description}
               </p>
             </div>

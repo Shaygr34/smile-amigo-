@@ -4,21 +4,23 @@
 
 :root {
   /* === COLORS === */
-  --color-ocean-deep: #0B2545;
-  --color-ocean-mid: #13506B;
-  --color-sky-light: #E8F1F5;
-  --color-sand-warm: #F5E6D3;
-  --color-golden: #D4A574;
+  --color-black: #0A0A0A;
+  --color-charcoal: #1A1A2E;
+  --color-gray-warm: #2C2C3A;
+  --color-gray-mid: #6B7280;
+  --color-gray-light: #F3F4F6;
   --color-white: #FAFAFA;
   --color-white-pure: #FFFFFF;
-  --color-text-primary: #0B2545;
-  --color-text-secondary: #4A6FA5;
-  --color-text-muted: #8B9DC3;
+  --color-accent: #FACC15;
+  --color-accent-hover: #EAB308;
+  --color-accent-soft: #FEF9C3;
+  --color-accent-text: #0A0A0A;
+  --color-overlay-dark: rgba(10, 10, 10, 0.55);
+  --color-overlay-light: rgba(10, 10, 10, 0.30);
 
   /* === TYPOGRAPHY === */
-  --font-heading: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-space-grotesk), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
 
   --text-hero: clamp(2.5rem, 5vw, 4.5rem);
   --text-h1: clamp(2rem, 3.5vw, 3rem);
@@ -51,8 +53,8 @@
   /* === EFFECTS === */
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
-  --shadow-card: 0 1px 3px rgba(11, 37, 69, 0.08);
-  --shadow-hover: 0 4px 12px rgba(11, 37, 69, 0.12);
+  --shadow-card: 0 1px 3px rgba(10, 10, 10, 0.08);
+  --shadow-hover: 0 4px 12px rgba(10, 10, 10, 0.15);
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -71,7 +73,7 @@ body {
 }
 
 body {
-  color: var(--color-text-primary);
+  color: var(--color-black);
   background: var(--color-white);
   font-family: var(--font-body);
   line-height: var(--leading-normal);
@@ -100,7 +102,7 @@ html {
   top: -100%;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-ocean-deep);
+  background: var(--color-charcoal);
   color: var(--color-white-pure);
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);

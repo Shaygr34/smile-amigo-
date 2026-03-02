@@ -3,9 +3,9 @@ export const SITE_DESCRIPTION =
   "Professional surf and event photography by Amit Banuz.";
 
 export const WHATSAPP_PHONE =
-  process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "972000000000";
+  process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "972548194361";
 
-export const INSTAGRAM_URL = "https://instagram.com/bigbanuz";
+export const INSTAGRAM_URL = "https://instagram.com/smileamigo.photo";
 
 export const NAV_LINKS = [
   { label: "Events", href: "/events" },

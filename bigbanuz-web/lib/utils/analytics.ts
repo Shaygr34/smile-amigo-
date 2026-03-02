@@ -20,4 +20,6 @@ export const analytics = {
     trackEvent("package_click", { package: packageName }),
   galleryView: (category: string, lane: string) =>
     trackEvent("gallery_view", { category, lane }),
+  laneClick: (lane: string) =>
+    trackEvent("lane_click", { lane }),
 };

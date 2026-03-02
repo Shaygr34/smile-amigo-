@@ -39,7 +39,7 @@ export default function Hero({
           blurDataURL={blurDataURL}
         />
       ) : (
-        <div className="absolute inset-0 bg-ocean-deep" />
+        <div className="absolute inset-0 bg-charcoal" />
       )}
 
       {/* Gradient Overlay */}

@@ -34,7 +34,7 @@ export default function SurfGallery({ images }: SurfGalleryProps) {
   return (
     <section className="py-section">
       <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-8">
+        <h2 className="text-h2 font-heading font-bold text-black text-center mb-8">
           Portfolio
         </h2>
 

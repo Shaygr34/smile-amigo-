@@ -17,12 +17,12 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
   if (!packages || packages.length === 0) return null;
 
   return (
-    <section className="py-section">
+    <section id="packages" className="py-section">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-4">
+        <h2 className="text-h2 font-heading font-bold text-black text-center mb-4">
           Event Packages
         </h2>
-        <p className="text-body text-text-secondary text-center max-w-text mx-auto mb-12">
+        <p className="text-body text-gray-mid text-center max-w-text mx-auto mb-12">
           Choose the package that fits your event. Every package includes
           professional editing and fast delivery.
         </p>

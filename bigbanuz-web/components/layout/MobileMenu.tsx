@@ -40,7 +40,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-ocean-deep flex flex-col"
+      className="fixed inset-0 z-[60] bg-charcoal flex flex-col"
       role="dialog"
       aria-modal="true"
       aria-label="Mobile navigation"
@@ -51,7 +51,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          className="p-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-golden"
+          className="p-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
           aria-label="Close menu"
         >
           <svg
@@ -77,7 +77,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             key={link.href}
             href={link.href}
             onClick={onClose}
-            className="text-h2 font-heading font-bold text-white hover:text-golden transition-colors duration-normal"
+            className="text-h2 font-heading font-bold text-white hover:text-accent transition-colors duration-normal"
           >
             {link.label}
           </Link>
@@ -92,7 +92,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               analytics.whatsappClick("nav");
               onClose();
             }}
-            className="inline-flex items-center px-8 py-4 bg-golden text-ocean-deep text-body font-semibold rounded-md hover:bg-[#c4955e] transition-colors duration-normal"
+            className="inline-flex items-center px-8 py-4 bg-accent text-accent-text text-body font-semibold rounded-md hover:bg-accent-hover transition-colors duration-normal"
           >
             Get in Touch
           </a>

@@ -5,7 +5,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-ocean-deep text-white py-12" role="contentinfo">
+    <footer className="bg-charcoal text-white py-12" role="contentinfo">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
@@ -17,7 +17,7 @@ export default function Footer() {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/70 hover:text-golden transition-colors duration-normal"
+              className="text-white/70 hover:text-accent transition-colors duration-normal"
               aria-label="Follow on Instagram"
             >
               <svg
@@ -37,7 +37,7 @@ export default function Footer() {
               href={buildWhatsAppUrlSimple()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/70 hover:text-golden transition-colors duration-normal"
+              className="text-white/70 hover:text-accent transition-colors duration-normal"
               aria-label="Contact on WhatsApp"
             >
               <svg

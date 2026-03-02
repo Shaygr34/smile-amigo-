@@ -93,12 +93,12 @@ export default async function SurfPage() {
       <LocationsStrip />
 
       {/* Work With Me Section */}
-      <section id="work-with-me" className="py-section bg-sky-light">
+      <section id="work-with-me" className="py-section bg-gray-light">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-h2 font-heading font-bold text-ocean-deep text-center mb-4">
+          <h2 className="text-h2 font-heading font-bold text-black text-center mb-4">
             Work With Me
           </h2>
-          <p className="text-body text-text-secondary text-center max-w-text mx-auto mb-12">
+          <p className="text-body text-gray-mid text-center max-w-text mx-auto mb-12">
             Looking for a surf photographer for your brand, publication, or
             personal project? Let&apos;s create something amazing together.
           </p>
@@ -108,7 +108,7 @@ export default async function SurfPage() {
 
       <CtaSection
         headline="See more on Instagram"
-        instagramLabel="Follow @bigbanuz"
+        instagramLabel="Follow @smileamigo.photo"
         instagramHref={INSTAGRAM_URL}
         whatsappLabel="WhatsApp Me"
       />

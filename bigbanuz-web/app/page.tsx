@@ -1,11 +1,11 @@
 import { client } from "@/lib/sanity/client";
-import { homePageQuery } from "@/lib/sanity/queries";
+import { homePageQuery, galleryByLaneQuery } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
-import Hero from "@/components/sections/Hero";
-import LaneSplit from "@/components/sections/LaneSplit";
+import SplitGateway from "@/components/sections/SplitGateway";
 import FeaturedGallery from "@/components/sections/FeaturedGallery";
 import CtaSection from "@/components/sections/CtaSection";
 import type { GalleryImage } from "@/components/ui/GalleryGrid";
+import { INSTAGRAM_URL } from "@/lib/utils/constants";
 
 interface SanityImage {
   asset?: { _ref?: string };
@@ -23,19 +23,11 @@ interface SanityGalleryImage {
 
 interface HomePageData {
   heroImage?: SanityImage;
-  heroHeadline?: string;
-  heroSubline?: string;
   eventsPreview?: {
     image?: SanityImage;
-    headline?: string;
-    bullets?: string[];
-    ctaText?: string;
   };
   surfPreview?: {
     image?: SanityImage;
-    headline?: string;
-    bullets?: string[];
-    ctaText?: string;
   };
   featuredGallery?: Array<{
     _id: string;
@@ -43,6 +35,17 @@ interface HomePageData {
     images?: SanityGalleryImage[];
   }>;
   bottomCtaText?: string;
+}
+
+interface GalleryDoc {
+  _id: string;
+  title: string;
+  images?: Array<{
+    image: SanityImage;
+    alt: string;
+    caption?: string;
+    location?: string;
+  }>;
 }
 
 function getSanityImageUrl(image?: SanityImage, width = 1920): string {
@@ -56,18 +59,29 @@ function getSanityImageUrl(image?: SanityImage, width = 1920): string {
 
 export default async function HomePage() {
   let data: HomePageData | null = null;
+  let eventsGalleries: GalleryDoc[] = [];
+  let surfGalleries: GalleryDoc[] = [];
 
   try {
-    data = await client.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ["sanity"] } });
+    [data, eventsGalleries, surfGalleries] = await Promise.all([
+      client.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events" }, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "surf" }, { next: { tags: ["sanity"] } }),
+    ]);
   } catch {
-    // CMS not configured yet — use fallback content
+    // CMS not configured yet
   }
 
-  const heroUrl = getSanityImageUrl(data?.heroImage);
-  const headline = data?.heroHeadline || "Amit Banuz — Surf & Event Photographer";
-  const subline = data?.heroSubline || "Capturing moments in motion — from ocean waves to unforgettable events.";
+  // Split-screen images: prefer CMS preview images, fall back to first gallery image
+  const eventsImageUrl =
+    getSanityImageUrl(data?.eventsPreview?.image) ||
+    getSanityImageUrl(eventsGalleries[0]?.images?.[0]?.image);
 
-  // Build gallery images from CMS
+  const surfImageUrl =
+    getSanityImageUrl(data?.surfPreview?.image) ||
+    getSanityImageUrl(surfGalleries[0]?.images?.[0]?.image);
+
+  // Build featured gallery images from CMS
   const galleryImages: GalleryImage[] = [];
   if (data?.featuredGallery) {
     for (const gallery of data.featuredGallery) {
@@ -87,56 +101,22 @@ export default async function HomePage() {
     }
   }
 
-  const eventsCard = {
-    imageUrl: getSanityImageUrl(data?.eventsPreview?.image, 800),
-    imageAlt: "Event Photography",
-    headline: data?.eventsPreview?.headline || "Event Photography & Magnets",
-    bullets: data?.eventsPreview?.bullets || [
-      "Premium event coverage",
-      "Instant magnet prints on-site",
-      "Fast delivery of edited highlights",
-    ],
-    ctaText: data?.eventsPreview?.ctaText || "Explore Events",
-    ctaHref: "/events",
-  };
-
-  const surfCard = {
-    imageUrl: getSanityImageUrl(data?.surfPreview?.image, 800),
-    imageAlt: "Surf Photography",
-    headline: data?.surfPreview?.headline || "Surf Photography",
-    bullets: data?.surfPreview?.bullets || [
-      "In-water action photography",
-      "Philippines · Sri Lanka · Israel · Australia",
-      "Brand collaborations & editorial",
-    ],
-    ctaText: data?.surfPreview?.ctaText || "Explore Surf",
-    ctaHref: "/surf",
-  };
-
   return (
     <>
-      <Hero
-        imageUrl={heroUrl}
-        imageAlt="Surf photography by Amit Banuz"
-        headline={headline}
-        subline={subline}
-        ctas={[
-          { label: "Events & Magnets", href: "/events" },
-          { label: "Surf Photography", href: "/surf", variant: "secondary" },
-        ]}
+      <SplitGateway
+        eventsImage={eventsImageUrl}
+        surfImage={surfImageUrl}
       />
-
-      <LaneSplit events={eventsCard} surf={surfCard} />
 
       {galleryImages.length > 0 && (
         <FeaturedGallery images={galleryImages.slice(0, 9)} />
       )}
 
       <CtaSection
-        headline={data?.bottomCtaText || "Ready to work together?"}
+        headline={data?.bottomCtaText || "Let's create something amazing"}
         whatsappLabel="WhatsApp Me"
-        emailLabel="Send Email"
-        emailHref="/contact"
+        instagramLabel="Follow @smileamigo.photo"
+        instagramHref={INSTAGRAM_URL}
       />
     </>
   );
