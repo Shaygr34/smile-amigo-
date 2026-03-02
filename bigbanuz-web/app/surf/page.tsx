@@ -11,7 +11,7 @@ import CtaSection from "@/components/sections/CtaSection";
 import { INSTAGRAM_URL } from "@/lib/utils/constants";
 
 export const metadata: Metadata = {
-  title: "Surf Photography | bigbanuz",
+  title: "Surf Photography | Smile Amigo",
   description:
     "In-water surf photography by Amit Banuz. Shooting across Philippines, Sri Lanka, Israel, and Australia. Available for brand collaborations and editorial projects.",
 };

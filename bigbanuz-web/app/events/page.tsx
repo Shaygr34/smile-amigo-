@@ -11,7 +11,7 @@ import CtaSection from "@/components/sections/CtaSection";
 import type { GalleryImage } from "@/components/ui/GalleryGrid";
 
 export const metadata: Metadata = {
-  title: "Event Photography & Magnets | bigbanuz",
+  title: "Event Photography & Magnets | Smile Amigo",
   description:
     "Premium event photography and instant magnet prints by Amit Banuz. Three packages to fit your event. Fast delivery, personal attention, stunning results.",
 };

@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Amit Banuz — Surf & Event Photographer | bigbanuz",
+  title: "Amit Banuz — Surf & Event Photographer | Smile Amigo",
   description:
     "Professional surf and event photography by Amit Banuz. Based in Israel, shooting worldwide. Event packages with instant magnet prints. Surf photography across Philippines, Sri Lanka, Israel, and Australia.",
   metadataBase: new URL(
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
       "Professional surf and event photography by Amit Banuz. Event packages with instant magnet prints.",
     type: "website",
     locale: "en_US",
-    siteName: "bigbanuz",
+    siteName: "Smile Amigo",
   },
   twitter: {
     card: "summary_large_image",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "bigbanuz — Amit Banuz Photography",
+  name: "Smile Amigo — Amit Banuz Photography",
   description:
     "Professional surf and event photography by Amit Banuz. Event packages with instant magnet prints.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.com",

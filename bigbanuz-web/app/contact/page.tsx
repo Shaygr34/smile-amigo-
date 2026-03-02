@@ -4,7 +4,7 @@ import { INSTAGRAM_URL } from "@/lib/utils/constants";
 import ContactForm from "@/components/ui/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact | bigbanuz",
+  title: "Contact | Smile Amigo",
   description:
     "Get in touch with Amit Banuz. Available for event photography, surf photography, and brand collaborations. WhatsApp, email, or Instagram DM.",
 };
