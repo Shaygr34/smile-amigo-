@@ -19,9 +19,9 @@ export default function CtaSection({
   instagramHref = "https://instagram.com/smileamigo.photo",
 }: CtaSectionProps) {
   return (
-    <section className="py-section bg-gray-light">
+    <section className="py-section bg-charcoal">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-h2 font-heading font-bold text-black mb-8">
+        <h2 className="text-h2 font-heading font-bold text-white mb-8">
           {headline}
         </h2>
         <div className="flex flex-wrap justify-center gap-4">

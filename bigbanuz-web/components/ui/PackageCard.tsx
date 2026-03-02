@@ -31,10 +31,10 @@ export default function PackageCard({
 
   return (
     <div
-      className={`relative bg-white-pure rounded-lg p-6 lg:p-8 flex flex-col transition-shadow duration-normal ${
+      className={`relative rounded-lg p-6 lg:p-8 flex flex-col transition-shadow duration-normal ${
         featured
-          ? "shadow-card-hover ring-2 ring-accent"
-          : "shadow-card hover:shadow-card-hover"
+          ? "bg-charcoal text-white shadow-card-hover border-t-4 border-accent"
+          : "bg-white-pure border border-gray-200 shadow-card hover:shadow-card-hover"
       }`}
     >
       {featured && (
@@ -44,12 +44,12 @@ export default function PackageCard({
       )}
 
       {/* Package name */}
-      <h3 className="text-h3 font-heading font-bold text-black">
+      <h3 className={`text-h3 font-heading font-bold ${featured ? "text-white" : "text-black"}`}>
         {title}
       </h3>
 
       {/* Price */}
-      <p className="mt-3 text-h1 font-mono font-bold text-black">
+      <p className={`mt-3 text-h1 font-mono font-bold ${featured ? "text-white" : "text-black"}`}>
         {priceDisplay}
       </p>
 
@@ -58,7 +58,7 @@ export default function PackageCard({
         {inclusions.map((item, i) => (
           <li
             key={i}
-            className="flex items-start gap-2 text-body text-gray-mid"
+            className={`flex items-start gap-2 text-body ${featured ? "text-gray-300" : "text-gray-mid"}`}
           >
             <svg
               className="w-5 h-5 text-accent mt-0.5 shrink-0"

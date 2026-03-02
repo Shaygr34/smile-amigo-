@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { client } from "@/lib/sanity/client";
+import { galleryByLaneQuery } from "@/lib/sanity/queries";
+import { urlFor } from "@/lib/sanity/image";
 import Hero from "@/components/sections/Hero";
 import CtaSection from "@/components/sections/CtaSection";
 import { INSTAGRAM_URL } from "@/lib/utils/constants";
@@ -16,11 +19,47 @@ const LOCATIONS = [
   { name: "Australia", description: "Next destination — 2026" },
 ];
 
-export default function AboutPage() {
+interface SanityImage {
+  asset?: { _ref?: string };
+}
+
+interface GalleryDoc {
+  _id: string;
+  title: string;
+  images?: Array<{
+    image: SanityImage;
+    alt: string;
+  }>;
+}
+
+function getImageUrl(image?: SanityImage, width = 800): string {
+  if (!image?.asset?._ref) return "";
+  try {
+    return urlFor(image).width(width).quality(80).auto("format").url();
+  } catch {
+    return "";
+  }
+}
+
+export default async function AboutPage() {
+  let heroUrl = "";
+
+  try {
+    const galleries = await client.fetch<GalleryDoc[]>(
+      galleryByLaneQuery,
+      { lane: "surf" },
+      { next: { tags: ["sanity"] } }
+    );
+    const firstImage = galleries?.[0]?.images?.[0]?.image;
+    heroUrl = getImageUrl(firstImage, 1920);
+  } catch {
+    // CMS not configured yet
+  }
+
   return (
     <>
       <Hero
-        imageUrl=""
+        imageUrl={heroUrl}
         imageAlt="Amit Banuz — Surf & Event Photographer"
         headline="About Amit"
         subline="The story behind the lens"

@@ -53,7 +53,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-md transition-colors duration-normal focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2";
+    "inline-flex items-center justify-center font-medium rounded-md shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-normal focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2";
 
   const styles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
 

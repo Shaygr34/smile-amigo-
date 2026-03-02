@@ -14,10 +14,14 @@ export default function TestimonialCard({
   avatarUrl,
 }: TestimonialCardProps) {
   return (
-    <div className="bg-white-pure rounded-lg p-6 lg:p-8 shadow-card">
+    <div className="bg-white-pure rounded-lg p-6 lg:p-8 shadow-card border-l-4 border-accent">
+      {/* Decorative quote mark */}
+      <span className="block text-5xl leading-none text-accent/20 font-serif select-none" aria-hidden="true">
+        &ldquo;
+      </span>
       {/* Quote */}
-      <blockquote className="text-body text-black italic leading-relaxed">
-        &ldquo;{quote}&rdquo;
+      <blockquote className="text-body text-black italic leading-relaxed -mt-2">
+        {quote}
       </blockquote>
 
       {/* Author */}

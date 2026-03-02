@@ -1,9 +1,34 @@
 const LOCATIONS = [
-  { name: "Philippines", emoji: "🇵🇭" },
-  { name: "Sri Lanka", emoji: "🇱🇰" },
-  { name: "Israel", emoji: "🇮🇱" },
-  { name: "Australia", emoji: "🇦🇺", upcoming: true },
+  { name: "Philippines" },
+  { name: "Sri Lanka" },
+  { name: "Israel" },
+  { name: "Australia", upcoming: true },
 ];
+
+function MapPinIcon() {
+  return (
+    <svg
+      className="w-6 h-6 text-accent"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+      />
+    </svg>
+  );
+}
 
 export default function LocationsStrip() {
   return (
@@ -18,9 +43,7 @@ export default function LocationsStrip() {
               key={loc.name}
               className="snap-center shrink-0 flex flex-col items-center gap-2 px-6 py-4 bg-white-pure rounded-lg shadow-card min-w-[140px]"
             >
-              <span className="text-3xl" aria-hidden="true">
-                {loc.emoji}
-              </span>
+              <MapPinIcon />
               <span className="text-small font-medium text-black">
                 {loc.name}
               </span>

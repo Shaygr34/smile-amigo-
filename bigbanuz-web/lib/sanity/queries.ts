@@ -28,7 +28,7 @@ export const homePageQuery = groq`
       title,
       images[] {
         image {
-          asset->,
+          asset,
           hotspot,
           crop
         },
@@ -67,7 +67,7 @@ export const galleryByLaneQuery = groq`
     category,
     images[] {
       image {
-        asset->,
+        asset,
         hotspot,
         crop
       },
@@ -90,7 +90,7 @@ export const allGalleryQuery = groq`
     category,
     images[] {
       image {
-        asset->,
+        asset,
         hotspot,
         crop
       },
@@ -110,7 +110,7 @@ export const featuredGalleryQuery = groq`
     title,
     images[featured == true] {
       image {
-        asset->,
+        asset,
         hotspot,
         crop
       },
