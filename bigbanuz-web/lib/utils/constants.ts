@@ -1,4 +1,4 @@
-export const SITE_NAME = "bigbanuz";
+export const SITE_NAME = "Smile Amigo";
 export const SITE_DESCRIPTION =
   "Professional surf and event photography by Amit Banuz.";
 

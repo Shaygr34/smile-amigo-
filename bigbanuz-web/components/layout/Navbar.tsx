@@ -43,7 +43,7 @@ export default function Navbar() {
                 scrolled ? "text-ocean-deep" : "text-white"
               }`}
             >
-              bigbanuz
+              Smile Amigo
             </Link>
 
             {/* Desktop Nav */}

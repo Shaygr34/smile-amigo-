@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="text-xl font-bold tracking-tight">bigbanuz</div>
+          <div className="text-xl font-bold tracking-tight">Smile Amigo</div>
 
           {/* Social links */}
           <div className="flex items-center gap-6">
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-white/50 text-small">
-            &copy; {currentYear} bigbanuz. All rights reserved.
+            &copy; {currentYear} Smile Amigo. All rights reserved.
           </p>
         </div>
       </div>

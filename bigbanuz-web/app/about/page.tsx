@@ -4,7 +4,7 @@ import CtaSection from "@/components/sections/CtaSection";
 import { INSTAGRAM_URL } from "@/lib/utils/constants";
 
 export const metadata: Metadata = {
-  title: "About Amit Banuz | bigbanuz",
+  title: "About Amit Banuz | Smile Amigo",
   description:
     "The story behind the lens. Amit Banuz — combat veteran turned surf and event photographer. Based in Israel, shooting worldwide.",
 };
