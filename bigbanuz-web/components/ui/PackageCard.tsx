@@ -34,7 +34,7 @@ export default function PackageCard({
       className={`relative rounded-lg p-6 lg:p-8 flex flex-col transition-shadow duration-normal ${
         featured
           ? "bg-charcoal text-white shadow-card-hover border-t-4 border-accent"
-          : "bg-white-pure border border-gray-200 shadow-card hover:shadow-card-hover"
+          : "bg-white-pure border border-gray-200 dark:border-white/10 shadow-card hover:shadow-card-hover"
       }`}
     >
       {featured && (

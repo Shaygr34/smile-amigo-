@@ -4,7 +4,7 @@ export default function HomeLoading() {
       {/* Split Gateway skeleton */}
       <div className="h-screen flex flex-col md:flex-row">
         <div className="flex-1 bg-gray-light animate-pulse" />
-        <div className="flex-1 bg-gray-200 animate-pulse" />
+        <div className="flex-1 bg-gray-200 dark:bg-gray-700 animate-pulse" />
       </div>
 
       {/* Video Reel skeleton */}
@@ -30,10 +30,10 @@ export default function HomeLoading() {
       {/* CTA skeleton */}
       <div className="py-section bg-gray-light">
         <div className="max-w-content mx-auto px-4 text-center">
-          <div className="h-8 w-72 bg-gray-200 animate-pulse rounded mx-auto mb-6" />
+          <div className="h-8 w-72 bg-gray-200 dark:bg-gray-700 animate-pulse rounded mx-auto mb-6" />
           <div className="flex justify-center gap-4">
-            <div className="h-12 w-40 bg-gray-200 animate-pulse rounded-full" />
-            <div className="h-12 w-40 bg-gray-200 animate-pulse rounded-full" />
+            <div className="h-12 w-40 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-full" />
+            <div className="h-12 w-40 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-full" />
           </div>
         </div>
       </div>

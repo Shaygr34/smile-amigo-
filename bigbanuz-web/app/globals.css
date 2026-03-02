@@ -2,19 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   LIGHT MODE (default)
+   ============================================================ */
 :root {
-  /* === COLORS === */
+  /* === FLIPPING COLORS (swapped in html.dark) === */
   --color-black: #0A0A0A;
-  --color-charcoal: #1A1A2E;
-  --color-gray-warm: #2C2C3A;
-  --color-gray-mid: #6B7280;
-  --color-gray-light: #F3F4F6;
-  --color-white: #FAFAFA;
   --color-white-pure: #FFFFFF;
-  --color-accent: #FACC15;
-  --color-accent-hover: #EAB308;
+  --color-gray-light: #F3F4F6;
+  --color-gray-mid: #6B7280;
   --color-accent-soft: #FEF9C3;
   --color-accent-text: #0A0A0A;
+
+  /* === FIXED COLORS (same in both modes) === */
+  --color-charcoal: #1A1A2E;
+  --color-gray-warm: #2C2C3A;
+  --color-white: #FAFAFA;
+  --color-accent: #FACC15;
+  --color-accent-hover: #EAB308;
   --color-overlay-dark: rgba(10, 10, 10, 0.55);
   --color-overlay-light: rgba(10, 10, 10, 0.30);
 
@@ -60,10 +65,33 @@
   --radius-lg: 12px;
 }
 
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+html.dark {
+  --color-black: #FAFAFA;
+  --color-white-pure: #1A1A2E;
+  --color-gray-light: #2C2C3A;
+  --color-gray-mid: #9CA3AF;
+  --color-accent-soft: #3D3520;
+  --color-accent-text: #0A0A0A;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html,
@@ -74,7 +102,7 @@ body {
 
 body {
   color: var(--color-black);
-  background: var(--color-white);
+  background: var(--color-white-pure);
   font-family: var(--font-body);
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
@@ -91,11 +119,6 @@ img {
   height: auto;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Skip to content link for accessibility */
 .skip-to-content {
   position: absolute;
@@ -103,7 +126,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-charcoal);
-  color: var(--color-white-pure);
+  color: #FFFFFF;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
   z-index: 100;
@@ -114,7 +137,9 @@ html {
   top: 1rem;
 }
 
-/* Shimmer loading animation (optional enhancement over animate-pulse) */
+/* ============================================================
+   SHIMMER / LOADING ANIMATION
+   ============================================================ */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -133,4 +158,32 @@ html {
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+}
+
+html.dark .animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-light) 25%,
+    #3D3D50 50%,
+    var(--color-gray-light) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* ============================================================
+   PAGE TRANSITION
+   ============================================================ */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: page-fade-in 0.3s ease-out;
 }

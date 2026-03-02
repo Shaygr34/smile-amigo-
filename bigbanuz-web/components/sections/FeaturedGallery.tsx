@@ -25,7 +25,7 @@ export default function FeaturedGallery({ images }: FeaturedGalleryProps) {
           <GalleryGrid images={images} columns={3} gap="tight" />
         </ScrollReveal>
         <div className="mt-8 text-center">
-          <Button href="/surf" variant="secondary" size="lg">
+          <Button href="/surf" variant="primary" size="lg">
             View Full Portfolio
           </Button>
         </div>

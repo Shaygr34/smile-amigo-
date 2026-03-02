@@ -7,6 +7,7 @@ import { NAV_LINKS } from "@/lib/utils/constants";
 import { buildWhatsAppUrlSimple } from "@/lib/utils/whatsapp";
 import { analytics } from "@/lib/utils/analytics";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 interface NavbarProps {
   logoUrl?: string;
@@ -33,7 +34,7 @@ export default function Navbar({ logoUrl }: NavbarProps) {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-normal ${
           scrolled
-            ? "bg-[var(--color-white)]/95 backdrop-blur-sm shadow-card"
+            ? "bg-[var(--color-white-pure)]/95 backdrop-blur-sm shadow-card border-b border-gray-light/50"
             : "bg-transparent"
         }`}
         role="navigation"
@@ -76,21 +77,24 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                   {link.label}
                 </Link>
               ))}
+              <ThemeToggle />
               <a
                 href={buildWhatsAppUrlSimple()}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleWhatsAppClick}
-                className="inline-flex items-center px-5 py-2.5 bg-accent text-accent-text text-small font-medium rounded-md hover:bg-accent-hover transition-colors duration-normal focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+                className="inline-flex items-center px-5 py-2.5 bg-sun-gradient text-white text-small font-medium rounded-full shadow-sun-glow hover:bg-sun-gradient-hover hover:shadow-sun-glow-lg hover:-translate-y-0.5 transition-all duration-normal focus:outline-none focus:ring-2 focus:ring-sun/40 focus:ring-offset-2"
               >
                 Get in Touch
               </a>
             </div>
 
-            {/* Mobile Hamburger */}
-            <button
-              type="button"
-              className="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+            {/* Mobile: Theme Toggle + Hamburger */}
+            <div className="flex items-center gap-1 md:hidden">
+              <ThemeToggle />
+              <button
+                type="button"
+                className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
               aria-expanded={mobileOpen}
@@ -110,7 +114,8 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </nav>

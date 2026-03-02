@@ -4,9 +4,9 @@ export default function EventsLoading() {
       {/* Hero skeleton */}
       <div className="relative h-[70vh] bg-gray-light animate-pulse">
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="h-10 w-80 bg-gray-200 rounded mb-4" />
-          <div className="h-5 w-64 bg-gray-200 rounded mb-8" />
-          <div className="h-12 w-44 bg-gray-200 rounded-full" />
+          <div className="h-10 w-80 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
+          <div className="h-5 w-64 bg-gray-200 dark:bg-gray-700 rounded mb-8" />
+          <div className="h-12 w-44 bg-gray-200 dark:bg-gray-700 rounded-full" />
         </div>
       </div>
 

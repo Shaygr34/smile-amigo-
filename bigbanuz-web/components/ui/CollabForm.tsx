@@ -77,7 +77,7 @@ export default function CollabForm() {
             id="collab-name"
             name="name"
             required
-            className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
             placeholder="Your name"
           />
         </div>
@@ -93,7 +93,7 @@ export default function CollabForm() {
             id="collab-email"
             name="email"
             required
-            className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
             placeholder="your@email.com"
           />
         </div>
@@ -110,7 +110,7 @@ export default function CollabForm() {
           type="text"
           id="collab-company"
           name="company"
-          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
           placeholder="Your brand or company name"
         />
       </div>
@@ -127,7 +127,7 @@ export default function CollabForm() {
           name="projectDescription"
           required
           rows={4}
-          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
+          className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
           placeholder="Tell me about your project..."
         />
       </div>
@@ -142,7 +142,7 @@ export default function CollabForm() {
         <select
           id="collab-budget"
           name="budgetRange"
-          className="w-full px-4 py-3 rounded-md border border-gray-light bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
         >
           <option value="">Select a range (optional)</option>
           {BUDGET_OPTIONS.map((opt) => (

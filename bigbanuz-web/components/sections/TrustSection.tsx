@@ -51,7 +51,7 @@ export default function TrustSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {TRUST_ITEMS.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 100}>
-              <div className="text-center bg-white-pure rounded-lg border border-gray-200 p-6">
+              <div className="text-center bg-white-pure rounded-lg border border-gray-200 dark:border-white/10 p-6">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-accent-soft text-black mb-4">
                   {item.icon}
                 </div>

@@ -38,13 +38,13 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
       <table className="w-full min-w-[600px] border-collapse">
         <thead>
           <tr>
-            <th className="text-left p-4 text-small font-semibold text-gray-mid border-b border-gray-200">
+            <th className="text-left p-4 text-small font-semibold text-gray-mid border-b border-gray-200 dark:border-white/10">
               Features
             </th>
             {packages.map((pkg) => (
               <th
                 key={pkg._id}
-                className={`p-4 text-center border-b border-gray-200 ${
+                className={`p-4 text-center border-b border-gray-200 dark:border-white/10 ${
                   pkg.featured ? "bg-charcoal text-white rounded-t-lg" : ""
                 }`}
               >
@@ -63,8 +63,8 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
         </thead>
         <tbody>
           {allFeatures.map((feature, i) => (
-            <tr key={feature} className={i % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-              <td className="p-4 text-body text-gray-mid border-b border-gray-100">
+            <tr key={feature} className={i % 2 === 0 ? "bg-gray-50 dark:bg-white/5" : "bg-white dark:bg-transparent"}>
+              <td className="p-4 text-body text-gray-mid border-b border-gray-100 dark:border-white/5">
                 {feature}
               </td>
               {packages.map((pkg) => {
@@ -72,7 +72,7 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
                 return (
                   <td
                     key={pkg._id}
-                    className={`p-4 text-center border-b border-gray-100 ${
+                    className={`p-4 text-center border-b border-gray-100 dark:border-white/5 ${
                       pkg.featured ? "bg-charcoal/5" : ""
                     }`}
                   >

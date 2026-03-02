@@ -6,21 +6,25 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        black: "#0A0A0A",
+        // --- Flipping colors (use CSS variables, swap in html.dark) ---
+        black: "var(--color-black)",
+        "white-pure": "var(--color-white-pure)",
+        "gray-light": "var(--color-gray-light)",
+        "gray-mid": "var(--color-gray-mid)",
+        "accent-soft": "var(--color-accent-soft)",
+        "accent-text": "var(--color-accent-text)",
+
+        // --- Fixed colors (always the same in both modes) ---
         charcoal: "#1A1A2E",
         "gray-warm": "#2C2C3A",
-        "gray-mid": "#6B7280",
-        "gray-light": "#F3F4F6",
         white: "#FAFAFA",
-        "white-pure": "#FFFFFF",
         accent: {
           DEFAULT: "#FACC15",
           hover: "#EAB308",
-          soft: "#FEF9C3",
-          text: "#0A0A0A",
         },
         sun: {
           light: "#FDE68A",

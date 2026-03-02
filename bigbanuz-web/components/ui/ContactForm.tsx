@@ -73,7 +73,7 @@ export default function ContactForm() {
           id="contact-name"
           name="name"
           required
-          className="w-full px-4 py-3 rounded-md border border-gray-200 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
           placeholder="Your name"
         />
       </div>
@@ -90,7 +90,7 @@ export default function ContactForm() {
           id="contact-email"
           name="email"
           required
-          className="w-full px-4 py-3 rounded-md border border-gray-200 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
           placeholder="your@email.com"
         />
       </div>
@@ -106,7 +106,7 @@ export default function ContactForm() {
           id="contact-subject"
           name="subject"
           required
-          className="w-full px-4 py-3 rounded-md border border-gray-200 bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+          className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
         >
           <option value="">Select a subject</option>
           {SUBJECT_OPTIONS.map((opt) => (
@@ -129,7 +129,7 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-3 rounded-md border border-gray-200 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
+          className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
           placeholder="Tell me about your project or inquiry..."
         />
       </div>

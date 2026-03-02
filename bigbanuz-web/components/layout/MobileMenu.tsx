@@ -92,7 +92,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               analytics.whatsappClick("nav");
               onClose();
             }}
-            className="inline-flex items-center px-8 py-4 bg-accent text-accent-text text-body font-semibold rounded-md hover:bg-accent-hover transition-colors duration-normal"
+            className="inline-flex items-center px-8 py-4 bg-sun-gradient text-white text-body font-semibold rounded-full shadow-sun-glow hover:bg-sun-gradient-hover hover:shadow-sun-glow-lg hover:-translate-y-0.5 transition-all duration-normal"
           >
             Get in Touch
           </a>
