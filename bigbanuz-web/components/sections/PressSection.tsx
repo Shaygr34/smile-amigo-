@@ -16,7 +16,7 @@ const PRESS_FEATURES: PressFeature[] = [
     author: "Nicola Morgan",
     date: "Jan 2025",
     url: "https://vampiresurfclub.com/blogs/news/fleeting-waves-and-lasting-impressions-amit-banuz-on-the-magic-of-unscripted-encounters",
-    image: "https://vampiresurfclub.com/cdn/shop/articles/Amit_Banuz_2adb2799-d60f-4370-a836-eb37005e8ae7.jpg?v=1737565256&width=1920",
+    image: "https://cdn.shopify.com/s/files/1/0574/0760/2769/files/Yenien_VampireSurfClub_hoodedRashguard_Siargao_AmitBanuz_2048x2048.jpg?v=1735154819",
     excerpt:
       "Sometimes, the ocean introduces us to more than waves — it reveals the faces that linger long after the lens is put down.",
   },
