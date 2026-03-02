@@ -12,13 +12,13 @@ interface PressFeature {
 
 const PRESS_FEATURES: PressFeature[] = [
   {
-    title: "Smile Amigo — Capturing Surf Culture Through the Lens",
+    title: "Fleeting Waves and Lasting Impressions: Amit Banuz on the Magic of Unscripted Encounters",
     author: "Nicola Morgan",
     date: "Jan 2025",
-    url: "https://vampiresurfclub.com/smile-amigo",
-    image: "https://vampiresurfclub.com/cdn/shop/articles/IMG_4745.jpg",
+    url: "https://vampiresurfclub.com/blogs/news/fleeting-waves-and-lasting-impressions-amit-banuz-on-the-magic-of-unscripted-encounters",
+    image: "https://vampiresurfclub.com/cdn/shop/articles/Amit_Banuz_2adb2799-d60f-4370-a836-eb37005e8ae7.jpg?v=1737565256&width=1920",
     excerpt:
-      "A deep dive into Amit Banuz's journey from combat veteran to in-water surf photographer, and how his unique perspective shapes every frame.",
+      "Sometimes, the ocean introduces us to more than waves — it reveals the faces that linger long after the lens is put down.",
   },
 ];
 
