@@ -10,9 +10,9 @@ export const INSTAGRAM_URL = "https://www.instagram.com/bigbanuz/";
 export const EMAIL_ADDRESS = "iambigbanuz@gmail.com";
 
 export const NAV_LINKS = [
-  { label: "Events", href: "/events" },
-  { label: "Surf", href: "/surf" },
-  { label: "Stories", href: "/stories" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { labelKey: "events", href: "/events" },
+  { labelKey: "surf", href: "/surf" },
+  { labelKey: "stories", href: "/stories" },
+  { labelKey: "about", href: "/about" },
+  { labelKey: "contact", href: "/contact" },
 ] as const;

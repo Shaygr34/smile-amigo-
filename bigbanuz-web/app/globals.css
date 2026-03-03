@@ -187,3 +187,11 @@ html.dark .animate-shimmer {
 .page-transition {
   animation: page-fade-in 0.3s ease-out;
 }
+
+/* ============================================================
+   HEBREW / RTL FONT OVERRIDE
+   ============================================================ */
+html[lang="he"] {
+  --font-heading: var(--font-rubik), var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-heebo), var(--font-inter), system-ui, sans-serif;
+}

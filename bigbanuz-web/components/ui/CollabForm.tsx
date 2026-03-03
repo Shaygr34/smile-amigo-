@@ -1,22 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { submitCollabLead } from "@/lib/actions/submitCollabLead";
 import { analytics } from "@/lib/utils/analytics";
 import Button from "./Button";
-
-const BUDGET_OPTIONS = [
-  "Under $500",
-  "$500-$1,000",
-  "$1,000-$5,000",
-  "$5,000+",
-  "Let's discuss",
-];
 
 export default function CollabForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Collab");
+
+  const BUDGET_OPTIONS = [
+    t("budgetUnder500"),
+    t("budget500to1000"),
+    t("budget1000to5000"),
+    t("budget5000plus"),
+    t("budgetDiscuss"),
+  ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -38,7 +40,7 @@ export default function CollabForm() {
       setSubmitted(true);
       analytics.collabSubmit(data.budgetRange || "not specified");
     } else {
-      setError(result.error || "Something went wrong. Please try again.");
+      setError(result.error || t("errorDefault"));
     }
 
     setLoading(false);
@@ -53,10 +55,10 @@ export default function CollabForm() {
           </svg>
         </div>
         <h3 className="text-h3 font-heading font-bold text-black mb-2">
-          Thank you!
+          {t("successTitle")}
         </h3>
         <p className="text-body text-gray-mid">
-          I&apos;ll get back to you soon. In the meantime, feel free to reach out on WhatsApp.
+          {t("successMessage")}
         </p>
       </div>
     );
@@ -70,7 +72,7 @@ export default function CollabForm() {
             htmlFor="collab-name"
             className="block text-small font-medium text-black mb-1"
           >
-            Name *
+            {t("nameLabel")}
           </label>
           <input
             type="text"
@@ -78,7 +80,7 @@ export default function CollabForm() {
             name="name"
             required
             className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-            placeholder="Your name"
+            placeholder={t("namePlaceholder")}
           />
         </div>
         <div>
@@ -86,7 +88,7 @@ export default function CollabForm() {
             htmlFor="collab-email"
             className="block text-small font-medium text-black mb-1"
           >
-            Email *
+            {t("emailLabel")}
           </label>
           <input
             type="email"
@@ -94,7 +96,7 @@ export default function CollabForm() {
             name="email"
             required
             className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-            placeholder="your@email.com"
+            placeholder={t("emailPlaceholder")}
           />
         </div>
       </div>
@@ -104,14 +106,14 @@ export default function CollabForm() {
           htmlFor="collab-company"
           className="block text-small font-medium text-black mb-1"
         >
-          Company / Brand / Individual
+          {t("companyLabel")}
         </label>
         <input
           type="text"
           id="collab-company"
           name="company"
           className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-          placeholder="Your brand or company name"
+          placeholder={t("companyPlaceholder")}
         />
       </div>
 
@@ -120,7 +122,7 @@ export default function CollabForm() {
           htmlFor="collab-project"
           className="block text-small font-medium text-black mb-1"
         >
-          Project Description *
+          {t("projectLabel")}
         </label>
         <textarea
           id="collab-project"
@@ -128,7 +130,7 @@ export default function CollabForm() {
           required
           rows={4}
           className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
-          placeholder="Tell me about your project..."
+          placeholder={t("projectPlaceholder")}
         />
       </div>
 
@@ -137,14 +139,14 @@ export default function CollabForm() {
           htmlFor="collab-budget"
           className="block text-small font-medium text-black mb-1"
         >
-          Budget Range
+          {t("budgetLabel")}
         </label>
         <select
           id="collab-budget"
           name="budgetRange"
           className="w-full px-4 py-3 rounded-md border border-gray-light dark:border-white/10 bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
         >
-          <option value="">Select a range (optional)</option>
+          <option value="">{t("budgetPlaceholder")}</option>
           {BUDGET_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
               {opt}
@@ -160,7 +162,7 @@ export default function CollabForm() {
       )}
 
       <Button type="submit" variant="primary" size="lg" disabled={loading}>
-        {loading ? "Sending..." : "Send Message"}
+        {loading ? t("sending") : t("sendMessage")}
       </Button>
     </form>
   );

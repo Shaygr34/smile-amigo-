@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface StoryCardProps {
   title: string;
@@ -9,6 +9,7 @@ interface StoryCardProps {
   shortDescription?: string;
   publishedAt?: string;
   location?: string;
+  locale?: string;
 }
 
 export default function StoryCard({
@@ -19,9 +20,10 @@ export default function StoryCard({
   shortDescription,
   publishedAt,
   location,
+  locale = "en",
 }: StoryCardProps) {
   const formattedDate = publishedAt
-    ? new Date(publishedAt).toLocaleDateString("en-US", {
+    ? new Date(publishedAt).toLocaleDateString(locale === "he" ? "he-IL" : "en-US", {
         month: "short",
         year: "numeric",
       })
@@ -40,7 +42,7 @@ export default function StoryCard({
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})}
+            {...(blurDataURL ? { placeholder: "blur" as const, blurDataURL } : {})}
           />
         </div>
       )}

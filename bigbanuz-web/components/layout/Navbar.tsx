@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { NAV_LINKS } from "@/lib/utils/constants";
 import { buildWhatsAppUrlSimple } from "@/lib/utils/whatsapp";
 import { analytics } from "@/lib/utils/analytics";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 interface NavbarProps {
   logoUrl?: string;
@@ -19,6 +21,7 @@ const DARK_HERO_PAGES = ["/", "/events", "/surf", "/about"];
 
 export default function Navbar({ logoUrl }: NavbarProps) {
   const pathname = usePathname();
+  const t = useTranslations("Nav");
   const hasDarkHero = DARK_HERO_PAGES.includes(pathname);
   const [scrolled, setScrolled] = useState(!hasDarkHero);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,7 +52,7 @@ export default function Navbar({ logoUrl }: NavbarProps) {
             : "bg-transparent"
         }`}
         role="navigation"
-        aria-label="Main navigation"
+        aria-label={t("mainNav")}
       >
         <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -85,9 +88,10 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                     scrolled ? "text-black" : "text-white"
                   }`}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
+              <LanguageSwitcher />
               <ThemeToggle />
               <a
                 href={buildWhatsAppUrlSimple()}
@@ -96,18 +100,19 @@ export default function Navbar({ logoUrl }: NavbarProps) {
                 onClick={handleWhatsAppClick}
                 className="inline-flex items-center px-5 py-2.5 bg-sun-gradient text-white text-small font-medium rounded-full shadow-sun-glow hover:bg-sun-gradient-hover hover:shadow-sun-glow-lg hover:-translate-y-0.5 transition-all duration-normal focus:outline-none focus:ring-2 focus:ring-sun/40 focus:ring-offset-2"
               >
-                Get in Touch
+                {t("getInTouch")}
               </a>
             </div>
 
-            {/* Mobile: Theme Toggle + Hamburger */}
+            {/* Mobile: Language + Theme Toggle + Hamburger */}
             <div className="flex items-center gap-1 md:hidden">
+              <LanguageSwitcher />
               <ThemeToggle />
               <button
                 type="button"
                 className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
+              aria-label={t("openMenu")}
               aria-expanded={mobileOpen}
             >
               <svg

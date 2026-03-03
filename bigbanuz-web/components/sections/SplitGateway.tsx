@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { analytics } from "@/lib/utils/analytics";
 
 interface LaneProps {
@@ -65,18 +65,33 @@ function Lane({
 interface SplitGatewayProps {
   eventsImage: string;
   surfImage: string;
+  eventsHeadline: string;
+  eventsSubline: string;
+  eventsCta: string;
+  surfHeadline: string;
+  surfSubline: string;
+  surfCta: string;
 }
 
-export default function SplitGateway({ eventsImage, surfImage }: SplitGatewayProps) {
+export default function SplitGateway({
+  eventsImage,
+  surfImage,
+  eventsHeadline,
+  eventsSubline,
+  eventsCta,
+  surfHeadline,
+  surfSubline,
+  surfCta,
+}: SplitGatewayProps) {
   return (
     <section className="flex flex-col md:flex-row w-full h-screen min-h-[600px]">
       <div className="flex-1 relative">
         <Lane
           imageUrl={eventsImage}
           imageAlt="Event photography and magnet prints by Smile Amigo"
-          headline="Events"
-          subline="Photography & instant magnet prints"
-          ctaLabel="See Packages"
+          headline={eventsHeadline}
+          subline={eventsSubline}
+          ctaLabel={eventsCta}
           ctaHref="/events"
           analyticsLabel="events"
         />
@@ -85,9 +100,9 @@ export default function SplitGateway({ eventsImage, surfImage }: SplitGatewayPro
         <Lane
           imageUrl={surfImage}
           imageAlt="In-water surf photography by Smile Amigo"
-          headline="Surf"
-          subline="In-water action photography"
-          ctaLabel="View Portfolio"
+          headline={surfHeadline}
+          subline={surfSubline}
+          ctaLabel={surfCta}
           ctaHref="/surf"
           analyticsLabel="surf"
         />

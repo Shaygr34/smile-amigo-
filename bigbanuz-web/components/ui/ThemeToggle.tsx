@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const [dark, setDark] = useState(false);
+  const t = useTranslations("Theme");
 
   useEffect(() => {
     setDark(document.documentElement.classList.contains("dark"));
@@ -27,7 +29,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={dark ? t("switchToLight") : t("switchToDark")}
       className="relative w-9 h-9 flex items-center justify-center rounded-full transition-colors duration-normal hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-accent"
     >
       {/* Sun icon (shown in dark mode → click to go light) */}

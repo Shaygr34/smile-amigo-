@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
 import { storiesQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
 import StoryCard from "@/components/ui/StoryCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export const metadata: Metadata = {
-  title: "Stories | Smile Amigo",
-  description:
-    "Stories from the field — behind-the-scenes tales, travel adventures, and the moments that make every shoot unique. By Amit Banuz.",
-  openGraph: {
-    images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Stories" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    openGraph: {
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+    },
+    alternates: {
+      languages: { en: "/en/stories", he: "/he/stories" },
+    },
+  };
+}
 
 interface SanityImage {
   asset?: { _ref?: string };
@@ -37,20 +49,27 @@ function getImageUrl(image?: SanityImage, width = 800): string {
   }
 }
 
-export default async function StoriesPage() {
+export default async function StoriesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Stories");
+
   let stories: Story[] = [];
 
   try {
     stories = await client.fetch<Story[]>(
       storiesQuery,
-      {},
+      { locale },
       { next: { tags: ["sanity"] } }
     );
   } catch {
     // CMS not configured yet
   }
 
-  // Build story entries with blur
   const storyEntries = stories.map((story) => ({
     story,
     imageUrl: getImageUrl(story.image),
@@ -71,11 +90,10 @@ export default async function StoriesPage() {
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h1 className="text-h1 font-heading font-bold text-black mb-4">
-              Stories
+              {t("title")}
             </h1>
             <p className="text-body text-gray-mid max-w-text mx-auto">
-              Behind-the-scenes tales, travel adventures, and the moments that
-              make every shoot unique.
+              {t("subtitle")}
             </p>
           </ScrollReveal>
         </div>
@@ -95,6 +113,7 @@ export default async function StoriesPage() {
                     shortDescription={entry.story.shortDescription}
                     publishedAt={entry.story.publishedAt}
                     location={entry.story.location}
+                    locale={locale}
                   />
                 </ScrollReveal>
               ))}
@@ -103,7 +122,7 @@ export default async function StoriesPage() {
             <ScrollReveal>
               <div className="text-center py-16">
                 <p className="text-body text-gray-mid">
-                  Stories coming soon. Stay tuned!
+                  {t("empty")}
                 </p>
               </div>
             </ScrollReveal>

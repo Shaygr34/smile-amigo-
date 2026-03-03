@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { NAV_LINKS } from "@/lib/utils/constants";
 import { buildWhatsAppUrlSimple } from "@/lib/utils/whatsapp";
 import { analytics } from "@/lib/utils/analytics";
@@ -13,6 +14,7 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations("Nav");
 
   useEffect(() => {
     if (isOpen) {
@@ -43,7 +45,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       className="fixed inset-0 z-[60] bg-charcoal flex flex-col"
       role="dialog"
       aria-modal="true"
-      aria-label="Mobile navigation"
+      aria-label={t("mobileNav")}
     >
       {/* Close button */}
       <div className="flex justify-end p-4">
@@ -52,7 +54,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           type="button"
           onClick={onClose}
           className="p-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
-          aria-label="Close menu"
+          aria-label={t("closeMenu")}
         >
           <svg
             className="w-6 h-6"
@@ -79,7 +81,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             onClick={onClose}
             className="text-h2 font-heading font-bold text-white hover:text-accent transition-colors duration-normal"
           >
-            {link.label}
+            {t(link.labelKey)}
           </Link>
         ))}
 
@@ -94,7 +96,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             }}
             className="inline-flex items-center px-8 py-4 bg-sun-gradient text-white text-body font-semibold rounded-full shadow-sun-glow hover:bg-sun-gradient-hover hover:shadow-sun-glow-lg hover:-translate-y-0.5 transition-all duration-normal"
           >
-            Get in Touch
+            {t("getInTouch")}
           </a>
         </div>
       </div>

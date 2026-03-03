@@ -2,14 +2,21 @@
 const groq = (strings: TemplateStringsArray, ...values: unknown[]) =>
   String.raw({ raw: strings }, ...values);
 
+// ---------------------------------------------------------------------------
+// Locale-aware projection helpers
+// coalesce(field[$locale], field) works with both:
+//   - current flat strings: field[$locale] → null, falls back to field
+//   - future localized objects {en, he}: field[$locale] → resolved value
+// ---------------------------------------------------------------------------
+
 // Site Settings
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
-    siteName,
-    siteDescription,
+    "siteName": coalesce(siteName[$locale], siteName),
+    "siteDescription": coalesce(siteDescription[$locale], siteDescription),
     logo,
     socialLinks,
-    ctaWhatsappMessage,
+    "ctaWhatsappMessage": coalesce(ctaWhatsappMessage[$locale], ctaWhatsappMessage),
     seoDefaults,
     analyticsId
   }
@@ -19,41 +26,41 @@ export const siteSettingsQuery = groq`
 export const homePageQuery = groq`
   *[_type == "pageHome"][0] {
     heroImage,
-    heroHeadline,
-    heroSubline,
+    "heroHeadline": coalesce(heroHeadline[$locale], heroHeadline),
+    "heroSubline": coalesce(heroSubline[$locale], heroSubline),
     eventsPreview,
     surfPreview,
     featuredGallery[]-> {
       _id,
-      title,
+      "title": coalesce(title[$locale], title),
       images[] {
         image {
           asset,
           hotspot,
           crop
         },
-        alt,
-        caption,
+        "alt": coalesce(alt[$locale], alt),
+        "caption": coalesce(caption[$locale], caption),
         location,
         featured
       }
     },
-    bottomCtaText
+    "bottomCtaText": coalesce(bottomCtaText[$locale], bottomCtaText)
   }
 `;
 
-// Packages
+// Packages — title, priceDisplay, inclusions, ctaText are translatable
 export const packagesQuery = groq`
   *[_type == "packages"] | order(sortOrder asc) {
     _id,
-    title,
+    "title": coalesce(title[$locale], title),
     slug,
     priceILS,
-    priceDisplay,
-    inclusions,
+    "priceDisplay": coalesce(priceDisplay[$locale], priceDisplay),
+    "inclusions": coalesce(inclusions[$locale], inclusions),
     featured,
     sortOrder,
-    ctaText
+    "ctaText": coalesce(ctaText[$locale], ctaText)
   }
 `;
 
@@ -61,7 +68,7 @@ export const packagesQuery = groq`
 export const galleryByLaneQuery = groq`
   *[_type == "gallery" && lane == $lane] | order(sortOrder asc) {
     _id,
-    title,
+    "title": coalesce(title[$locale], title),
     slug,
     lane,
     category,
@@ -71,8 +78,8 @@ export const galleryByLaneQuery = groq`
         hotspot,
         crop
       },
-      alt,
-      caption,
+      "alt": coalesce(alt[$locale], alt),
+      "caption": coalesce(caption[$locale], caption),
       location,
       featured
     },
@@ -84,7 +91,7 @@ export const galleryByLaneQuery = groq`
 export const allGalleryQuery = groq`
   *[_type == "gallery"] | order(sortOrder asc) {
     _id,
-    title,
+    "title": coalesce(title[$locale], title),
     slug,
     lane,
     category,
@@ -94,8 +101,8 @@ export const allGalleryQuery = groq`
         hotspot,
         crop
       },
-      alt,
-      caption,
+      "alt": coalesce(alt[$locale], alt),
+      "caption": coalesce(caption[$locale], caption),
       location,
       featured
     },
@@ -107,28 +114,28 @@ export const allGalleryQuery = groq`
 export const featuredGalleryQuery = groq`
   *[_type == "gallery" && images[].featured == true] | order(sortOrder asc) {
     _id,
-    title,
+    "title": coalesce(title[$locale], title),
     images[featured == true] {
       image {
         asset,
         hotspot,
         crop
       },
-      alt,
-      caption,
+      "alt": coalesce(alt[$locale], alt),
+      "caption": coalesce(caption[$locale], caption),
       location,
       featured
     }
   }
 `;
 
-// Testimonials
+// Testimonials — quote and context are translatable
 export const testimonialsQuery = groq`
   *[_type == "testimonial" && featured == true] | order(sortOrder asc) {
     _id,
-    quote,
+    "quote": coalesce(quote[$locale], quote),
     name,
-    context,
+    "context": coalesce(context[$locale], context),
     avatar,
     sourceLink,
     lane,
@@ -140,25 +147,27 @@ export const testimonialsQuery = groq`
 export const testimonialsByLaneQuery = groq`
   *[_type == "testimonial" && lane == $lane && featured == true] | order(sortOrder asc) {
     _id,
-    quote,
+    "quote": coalesce(quote[$locale], quote),
     name,
-    context,
+    "context": coalesce(context[$locale], context),
     avatar,
     sourceLink,
     lane
   }
 `;
 
-// Stories
+// Stories — document-level localization (language field)
+// When language field exists, filters by locale; otherwise returns all
 export const storiesQuery = groq`
-  *[_type == "story"] | order(publishedAt desc) {
+  *[_type == "story" && (!defined(language) || language == $locale)] | order(publishedAt desc) {
     _id,
     title,
     slug,
     image,
     shortDescription,
     publishedAt,
-    location
+    location,
+    language
   }
 `;
 
@@ -171,14 +180,15 @@ export const storyBySlugQuery = groq`
     shortDescription,
     body,
     publishedAt,
-    location
+    location,
+    language
   }
 `;
 
 // About page
 export const aboutPageQuery = groq`
   *[_type == "siteSettings"][0] {
-    siteName,
-    siteDescription
+    "siteName": coalesce(siteName[$locale], siteName),
+    "siteDescription": coalesce(siteDescription[$locale], siteDescription)
   }
 `;

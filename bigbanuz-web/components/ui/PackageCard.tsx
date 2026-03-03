@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { buildWhatsAppUrl } from "@/lib/utils/whatsapp";
 import { analytics } from "@/lib/utils/analytics";
@@ -16,9 +17,10 @@ export default function PackageCard({
   title,
   priceDisplay,
   inclusions,
-  ctaText = "Book This Package",
+  ctaText,
   featured,
 }: PackageCardProps) {
+  const t = useTranslations("Events");
   const whatsappUrl = buildWhatsAppUrl({
     type: "event",
     packageName: title,
@@ -39,7 +41,7 @@ export default function PackageCard({
     >
       {featured && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-text text-caption font-bold px-3 py-1 rounded-full">
-          POPULAR
+          {t("popular")}
         </div>
       )}
 
@@ -88,7 +90,7 @@ export default function PackageCard({
           className="w-full"
           onClick={handleClick}
         >
-          {ctaText}
+          {ctaText || t("bookPackage")}
         </Button>
       </div>
     </div>

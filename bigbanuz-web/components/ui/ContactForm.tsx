@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { submitContactLead } from "@/lib/actions/submitContactLead";
 import { analytics } from "@/lib/utils/analytics";
 import Button from "./Button";
-
-const SUBJECT_OPTIONS = [
-  "Event Inquiry",
-  "Surf Collaboration",
-  "Other",
-];
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Contact");
+
+  const SUBJECT_OPTIONS = [
+    t("subjectEvent"),
+    t("subjectSurf"),
+    t("subjectOther"),
+  ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -35,7 +37,7 @@ export default function ContactForm() {
       setSubmitted(true);
       analytics.emailSubmit("contact");
     } else {
-      setError(result.error || "Something went wrong. Please try again.");
+      setError(result.error || t("errorDefault"));
     }
 
     setLoading(false);
@@ -50,10 +52,10 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="text-h3 font-heading font-bold text-black mb-2">
-          Message Sent!
+          {t("successTitle")}
         </h3>
         <p className="text-body text-gray-mid">
-          Thanks for reaching out. I&apos;ll get back to you as soon as possible.
+          {t("successMessage")}
         </p>
       </div>
     );
@@ -66,7 +68,7 @@ export default function ContactForm() {
           htmlFor="contact-name"
           className="block text-small font-medium text-black mb-1"
         >
-          Name *
+          {t("nameLabel")}
         </label>
         <input
           type="text"
@@ -74,7 +76,7 @@ export default function ContactForm() {
           name="name"
           required
           className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-          placeholder="Your name"
+          placeholder={t("namePlaceholder")}
         />
       </div>
 
@@ -83,7 +85,7 @@ export default function ContactForm() {
           htmlFor="contact-email"
           className="block text-small font-medium text-black mb-1"
         >
-          Email *
+          {t("emailLabel")}
         </label>
         <input
           type="email"
@@ -91,7 +93,7 @@ export default function ContactForm() {
           name="email"
           required
           className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-          placeholder="your@email.com"
+          placeholder={t("emailPlaceholder")}
         />
       </div>
 
@@ -100,7 +102,7 @@ export default function ContactForm() {
           htmlFor="contact-subject"
           className="block text-small font-medium text-black mb-1"
         >
-          Subject *
+          {t("subjectLabel")}
         </label>
         <select
           id="contact-subject"
@@ -108,7 +110,7 @@ export default function ContactForm() {
           required
           className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
         >
-          <option value="">Select a subject</option>
+          <option value="">{t("subjectPlaceholder")}</option>
           {SUBJECT_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
               {opt}
@@ -122,7 +124,7 @@ export default function ContactForm() {
           htmlFor="contact-message"
           className="block text-small font-medium text-black mb-1"
         >
-          Message *
+          {t("messageLabel")}
         </label>
         <textarea
           id="contact-message"
@@ -130,7 +132,7 @@ export default function ContactForm() {
           required
           rows={5}
           className="w-full px-4 py-3 rounded-md border border-gray-200 dark:border-white/10 bg-white-pure text-black placeholder:text-gray-mid focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-y"
-          placeholder="Tell me about your project or inquiry..."
+          placeholder={t("messagePlaceholder")}
         />
       </div>
 
@@ -141,7 +143,7 @@ export default function ContactForm() {
       )}
 
       <Button type="submit" variant="primary" size="lg" disabled={loading}>
-        {loading ? "Sending..." : "Send Message"}
+        {loading ? t("sending") : t("sendMessage")}
       </Button>
     </form>
   );

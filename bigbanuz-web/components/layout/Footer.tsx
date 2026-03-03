@@ -1,15 +1,19 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { INSTAGRAM_URL } from "@/lib/utils/constants";
 import { buildWhatsAppUrlSimple } from "@/lib/utils/whatsapp";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const t = useTranslations("Footer");
 
   return (
     <footer className="bg-charcoal text-white py-12" role="contentinfo">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="text-xl font-bold tracking-tight">Smile Amigo</div>
+          <div className="text-xl font-bold tracking-tight">{t("brand")}</div>
 
           {/* Social links */}
           <div className="flex items-center gap-6">
@@ -18,7 +22,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-accent transition-colors duration-normal"
-              aria-label="Follow on Instagram"
+              aria-label={t("followInstagram")}
             >
               <svg
                 className="w-6 h-6"
@@ -38,7 +42,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/70 hover:text-accent transition-colors duration-normal"
-              aria-label="Contact on WhatsApp"
+              aria-label={t("contactWhatsApp")}
             >
               <svg
                 className="w-6 h-6"
@@ -53,7 +57,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-white/50 text-small">
-            &copy; {currentYear} Smile Amigo. All rights reserved.
+            {t("copyright", { year: currentYear })}
           </p>
         </div>
       </div>

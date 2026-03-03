@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { client } from "@/lib/sanity/client";
 import { storyBySlugQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
@@ -35,9 +36,9 @@ function getImageUrl(image?: SanityImage, width = 1200): string {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   try {
     const story = await client.fetch<Story>(
       storyBySlugQuery,
@@ -56,6 +57,12 @@ export async function generateMetadata({
       openGraph: {
         images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
       },
+      alternates: {
+        languages: {
+          en: `/en/stories/${slug}`,
+          he: `/he/stories/${slug}`,
+        },
+      },
     };
   } catch {
     return {};
@@ -65,9 +72,11 @@ export async function generateMetadata({
 export default async function StoryDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Stories");
 
   let story: Story | null = null;
   try {
@@ -88,7 +97,7 @@ export default async function StoryDetailPage({
     : "";
 
   const formattedDate = story.publishedAt
-    ? new Date(story.publishedAt).toLocaleDateString("en-US", {
+    ? new Date(story.publishedAt).toLocaleDateString(locale === "he" ? "he-IL" : "en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -106,7 +115,7 @@ export default async function StoryDetailPage({
             fill
             className="object-cover"
             priority
-            {...(heroBlur ? { placeholder: "blur", blurDataURL: heroBlur } : {})}
+            {...(heroBlur ? { placeholder: "blur" as const, blurDataURL: heroBlur } : {})}
           />
           <div className="absolute inset-0 bg-hero-gradient" />
           <div className="absolute inset-0 flex items-end">
@@ -154,7 +163,7 @@ export default async function StoryDetailPage({
               </div>
             ) : (
               <p className="text-body text-gray-mid italic">
-                Full story coming soon.
+                {t("fullStorySoon")}
               </p>
             )}
           </ScrollReveal>
@@ -164,12 +173,12 @@ export default async function StoryDetailPage({
             <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
               <Link
                 href="/stories"
-                className="text-small font-semibold text-gray-mid hover:text-black transition-colors"
+                className="text-small font-semibold text-gray-mid hover:text-black transition-colors inline-flex items-center gap-1"
               >
-                &larr; All Stories
+                <span className="rtl:rotate-180">&larr;</span> {t("allStories")}
               </Link>
               <Button href="/contact" variant="primary" size="md">
-                Work With Me
+                {t("workWithMe")}
               </Button>
             </div>
           </ScrollReveal>

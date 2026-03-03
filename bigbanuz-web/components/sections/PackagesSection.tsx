@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import PackageCard from "@/components/ui/PackageCard";
 import PackageComparisonTable from "@/components/ui/PackageComparisonTable";
 import ViewToggle from "@/components/ui/ViewToggle";
@@ -21,6 +22,7 @@ interface PackagesSectionProps {
 
 export default function PackagesSection({ packages }: PackagesSectionProps) {
   const [view, setView] = useState<"cards" | "table">("cards");
+  const t = useTranslations("Events");
 
   if (!packages || packages.length === 0) return null;
 
@@ -29,11 +31,10 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-h2 font-heading font-bold text-black text-center mb-4">
-            Event Packages
+            {t("packagesTitle")}
           </h2>
           <p className="text-body text-gray-mid text-center max-w-text mx-auto mb-8">
-            Choose the package that fits your event. Every package includes
-            professional editing and fast delivery.
+            {t("packagesSubtitle")}
           </p>
         </ScrollReveal>
 

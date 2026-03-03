@@ -1,3 +1,4 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
 import { homePageQuery, galleryByLaneQuery, testimonialsQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
@@ -68,7 +69,15 @@ function getSanityImageUrl(image?: SanityImage, width = 1920): string {
   }
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Home");
+
   let data: HomePageData | null = null;
   let eventsGalleries: GalleryDoc[] = [];
   let surfGalleries: GalleryDoc[] = [];
@@ -76,16 +85,15 @@ export default async function HomePage() {
 
   try {
     [data, eventsGalleries, surfGalleries, testimonials] = await Promise.all([
-      client.fetch<HomePageData>(homePageQuery, {}, { next: { tags: ["sanity"] } }),
-      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events" }, { next: { tags: ["sanity"] } }),
-      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "surf" }, { next: { tags: ["sanity"] } }),
-      client.fetch<Testimonial[]>(testimonialsQuery, {}, { next: { tags: ["sanity"] } }),
+      client.fetch<HomePageData>(homePageQuery, { locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events", locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "surf", locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<Testimonial[]>(testimonialsQuery, { locale }, { next: { tags: ["sanity"] } }),
     ]);
   } catch {
     // CMS not configured yet
   }
 
-  // Split-screen images: prefer CMS preview images, fall back to first gallery image
   const eventsImageUrl =
     getSanityImageUrl(data?.eventsPreview?.image) ||
     getSanityImageUrl(eventsGalleries[0]?.images?.[0]?.image);
@@ -94,7 +102,6 @@ export default async function HomePage() {
     getSanityImageUrl(data?.surfPreview?.image) ||
     getSanityImageUrl(surfGalleries[0]?.images?.[0]?.image);
 
-  // Build featured gallery images from CMS, collecting source refs for blur generation
   const galleryEntries: { galleryImage: GalleryImage; source: SanityImage }[] = [];
   if (data?.featuredGallery) {
     for (const gallery of data.featuredGallery) {
@@ -117,7 +124,6 @@ export default async function HomePage() {
     }
   }
 
-  // Generate blur placeholders in parallel
   await Promise.all(
     galleryEntries.map(async (entry) => {
       entry.galleryImage.blurDataURL = await getBlurDataURL(entry.source);
@@ -126,12 +132,12 @@ export default async function HomePage() {
 
   const galleryImages = galleryEntries.map((e) => e.galleryImage);
 
-  const displayTestimonials = testimonials.map((t) => ({
-    _id: t._id,
-    quote: t.quote,
-    name: t.name,
-    context: t.context,
-    avatarUrl: getSanityImageUrl(t.avatar, 80),
+  const displayTestimonials = testimonials.map((tm) => ({
+    _id: tm._id,
+    quote: tm.quote,
+    name: tm.name,
+    context: tm.context,
+    avatarUrl: getSanityImageUrl(tm.avatar, 80),
   }));
 
   return (
@@ -139,22 +145,42 @@ export default async function HomePage() {
       <SplitGateway
         eventsImage={eventsImageUrl}
         surfImage={surfImageUrl}
+        eventsHeadline={t("eventsHeadline")}
+        eventsSubline={t("eventsSubline")}
+        eventsCta={t("eventsCta")}
+        surfHeadline={t("surfHeadline")}
+        surfSubline={t("surfSubline")}
+        surfCta={t("surfCta")}
       />
 
-      <VideoReel />
+      <VideoReel
+        title={t("videoTitle")}
+        subtitle={t("videoSubtitle")}
+      />
 
       {galleryImages.length > 0 && (
-        <FeaturedGallery images={galleryImages.slice(0, 9)} />
+        <FeaturedGallery
+          images={galleryImages.slice(0, 9)}
+          title={t("galleryTitle")}
+          subtitle={t("gallerySubtitle")}
+          viewAllLabel={t("galleryViewAll")}
+        />
       )}
 
-      <PressSection />
+      <PressSection
+        title={t("pressTitle")}
+        readArticleLabel={t("pressReadArticle")}
+      />
 
-      <TestimonialsSection testimonials={displayTestimonials} />
+      <TestimonialsSection
+        testimonials={displayTestimonials}
+        title={t("testimonialsTitle")}
+      />
 
       <CtaSection
-        headline={data?.bottomCtaText || "Let's create something amazing"}
-        whatsappLabel="WhatsApp Me"
-        instagramLabel="Follow @bigbanuz"
+        headline={data?.bottomCtaText || t("ctaDefault")}
+        whatsappLabel={t("whatsappMe")}
+        instagramLabel={t("followBigbanuz")}
         instagramHref={INSTAGRAM_URL}
       />
     </>

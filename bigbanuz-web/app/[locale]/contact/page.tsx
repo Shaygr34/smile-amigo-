@@ -1,19 +1,39 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildWhatsAppUrlSimple } from "@/lib/utils/whatsapp";
 import { INSTAGRAM_URL, EMAIL_ADDRESS } from "@/lib/utils/constants";
 import ContactForm from "@/components/ui/ContactForm";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export const metadata: Metadata = {
-  title: "Contact | Smile Amigo",
-  description:
-    "Get in touch with Amit Banuz. Available for event photography, surf photography, and brand collaborations. WhatsApp, email, or Instagram DM.",
-  openGraph: {
-    images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Contact" });
 
-export default function ContactPage() {
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    openGraph: {
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+    },
+    alternates: {
+      languages: { en: "/en/contact", he: "/he/contact" },
+    },
+  };
+}
+
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Contact");
+
   return (
     <>
       {/* Warm Hero */}
@@ -26,15 +46,13 @@ export default function ContactPage() {
               </svg>
             </div>
             <h1 className="text-h1 font-heading font-bold text-black mb-4">
-              Let&apos;s Create Something Together
+              {t("heroTitle")}
             </h1>
             <p className="text-body text-gray-mid max-w-text mx-auto mb-3">
-              Whether it&apos;s capturing your event, shooting surf in a new
-              location, or collaborating on a brand project — I&apos;d love to
-              hear from you.
+              {t("heroSubtitle")}
             </p>
             <p className="text-small text-gray-mid">
-              Currently based in Israel, available worldwide
+              {t("basedIn")}
             </p>
           </ScrollReveal>
         </div>
@@ -58,10 +76,10 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h2 className="text-h3 font-heading font-bold text-black mb-2">
-                  WhatsApp
+                  {t("whatsapp")}
                 </h2>
                 <p className="text-small text-gray-mid">
-                  Fastest way to reach me. Tap to start a conversation.
+                  {t("whatsappDesc")}
                 </p>
               </a>
 
@@ -76,7 +94,7 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h2 className="text-h3 font-heading font-bold text-black mb-2">
-                  Email
+                  {t("email")}
                 </h2>
                 <p className="text-small text-gray-mid">
                   {EMAIL_ADDRESS}
@@ -96,10 +114,10 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <h2 className="text-h3 font-heading font-bold text-black mb-2">
-                  Instagram
+                  {t("instagram")}
                 </h2>
                 <p className="text-small text-gray-mid">
-                  DM me on Instagram @bigbanuz
+                  {t("instagramDesc")}
                 </p>
               </a>
             </div>
@@ -111,7 +129,7 @@ export default function ContactPage() {
               <div className="bg-gradient-to-b from-accent-soft/40 to-transparent rounded-2xl p-8 sm:p-12">
                 <div className="w-20 h-1 bg-sun-gradient rounded-full mx-auto mb-8" />
                 <h2 className="text-h2 font-heading font-bold text-black text-center mb-8">
-                  Drop Me a Line
+                  {t("formTitle")}
                 </h2>
                 <ContactForm />
               </div>

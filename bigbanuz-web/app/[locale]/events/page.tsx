@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
 import { packagesQuery, galleryByLaneQuery, testimonialsByLaneQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
@@ -11,12 +12,19 @@ import CtaSection from "@/components/sections/CtaSection";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { GalleryImage } from "@/components/ui/GalleryGrid";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Events" });
+
   let ogImage: string | undefined;
   try {
     const galleries = await client.fetch<GalleryDoc[]>(
       galleryByLaneQuery,
-      { lane: "events" },
+      { lane: "events", locale },
       { next: { tags: ["sanity"] } }
     );
     const firstImage = galleries?.[0]?.images?.[0]?.image;
@@ -28,11 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return {
-    title: "Event Photography & Magnets | Smile Amigo",
-    description:
-      "Premium event photography and instant magnet prints by Amit Banuz. Three packages to fit your event. Fast delivery, personal attention, stunning results.",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     openGraph: {
       images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
+    },
+    alternates: {
+      languages: { en: "/en/events", he: "/he/events" },
     },
   };
 }
@@ -71,7 +81,6 @@ interface Testimonial {
   avatar?: SanityImage;
 }
 
-// Fallback packages if CMS is not yet configured
 const FALLBACK_PACKAGES: Package[] = [
   {
     _id: "basic",
@@ -130,16 +139,24 @@ function getImageUrl(image?: SanityImage, width = 800): string {
   }
 }
 
-export default async function EventsPage() {
+export default async function EventsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Events");
+
   let packages: Package[] = [];
   let galleries: GalleryDoc[] = [];
   let testimonials: Testimonial[] = [];
 
   try {
     [packages, galleries, testimonials] = await Promise.all([
-      client.fetch<Package[]>(packagesQuery, {}, { next: { tags: ["sanity"] } }),
-      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events" }, { next: { tags: ["sanity"] } }),
-      client.fetch<Testimonial[]>(testimonialsByLaneQuery, { lane: "events" }, { next: { tags: ["sanity"] } }),
+      client.fetch<Package[]>(packagesQuery, { locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events", locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<Testimonial[]>(testimonialsByLaneQuery, { lane: "events", locale }, { next: { tags: ["sanity"] } }),
     ]);
   } catch {
     // CMS not configured yet
@@ -147,7 +164,6 @@ export default async function EventsPage() {
 
   const displayPackages = packages.length > 0 ? packages : FALLBACK_PACKAGES;
 
-  // Build gallery images, collecting source refs for blur
   const galleryEntries: { galleryImage: GalleryImage; source: SanityImage }[] = [];
   for (const gallery of galleries) {
     if (gallery.images) {
@@ -168,20 +184,17 @@ export default async function EventsPage() {
     }
   }
 
-  // Build testimonials
-  const displayTestimonials = testimonials.map((t) => ({
-    _id: t._id,
-    quote: t.quote,
-    name: t.name,
-    context: t.context,
-    avatarUrl: getImageUrl(t.avatar, 80),
+  const displayTestimonials = testimonials.map((tm) => ({
+    _id: tm._id,
+    quote: tm.quote,
+    name: tm.name,
+    context: tm.context,
+    avatarUrl: getImageUrl(tm.avatar, 80),
   }));
 
-  // Use first gallery image as hero if available
   const heroSource = galleries[0]?.images?.[0]?.image;
   const eventsHeroUrl = galleryEntries.length > 0 ? getImageUrl(heroSource, 1920) : "";
 
-  // Generate blur placeholders in parallel (hero + gallery)
   const [heroBlur] = await Promise.all([
     heroSource?.asset?._ref ? getBlurDataURL(heroSource) : Promise.resolve(""),
     ...galleryEntries.map(async (entry) => {
@@ -191,7 +204,6 @@ export default async function EventsPage() {
 
   const galleryImages = galleryEntries.map((e) => e.galleryImage);
 
-  // Product JSON-LD for packages
   const packageJsonLd = displayPackages.map((pkg) => ({
     "@context": "https://schema.org",
     "@type": "Product",
@@ -207,6 +219,8 @@ export default async function EventsPage() {
     },
   }));
 
+  const tHome = await getTranslations("Home");
+
   return (
     <>
       {packageJsonLd.map((jsonLd, i) => (
@@ -218,12 +232,12 @@ export default async function EventsPage() {
       ))}
       <Hero
         imageUrl={eventsHeroUrl}
-        imageAlt="Event photography by Amit Banuz"
+        imageAlt={t("heroImageAlt")}
         blurDataURL={heroBlur}
-        headline="Event Photography & Magnets"
-        subline="Premium photos and instant magnet prints for your event"
+        headline={t("heroHeadline")}
+        subline={t("heroSubline")}
         ctas={[
-          { label: "Check Availability", href: "#packages" },
+          { label: t("checkAvailability"), href: "#packages" },
         ]}
       />
 
@@ -236,7 +250,7 @@ export default async function EventsPage() {
           <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal>
               <h2 className="text-h2 font-heading font-bold text-black text-center mb-8">
-                Event Portfolio
+                {t("portfolioTitle")}
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={100}>
@@ -246,12 +260,12 @@ export default async function EventsPage() {
         </section>
       )}
 
-      <TestimonialsSection testimonials={displayTestimonials} />
+      <TestimonialsSection testimonials={displayTestimonials} title={tHome("testimonialsTitle")} />
 
       <CtaSection
-        headline="Let's make your event unforgettable"
-        whatsappLabel="WhatsApp Me"
-        emailLabel="Send Email"
+        headline={t("ctaHeadline")}
+        whatsappLabel={t("whatsappMe")}
+        emailLabel={t("sendEmail")}
         emailHref="/contact"
       />
     </>

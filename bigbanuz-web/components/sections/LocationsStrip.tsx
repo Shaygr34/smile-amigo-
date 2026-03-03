@@ -1,11 +1,7 @@
-import ScrollReveal from "@/components/ui/ScrollReveal";
+"use client";
 
-const LOCATIONS = [
-  { name: "Philippines" },
-  { name: "Sri Lanka" },
-  { name: "Israel" },
-  { name: "Australia", upcoming: true },
-];
+import { useTranslations } from "next-intl";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 function MapPinIcon() {
   return (
@@ -33,28 +29,37 @@ function MapPinIcon() {
 }
 
 export default function LocationsStrip() {
+  const t = useTranslations("Locations");
+
+  const LOCATIONS = [
+    { nameKey: "philippines" as const },
+    { nameKey: "sriLanka" as const },
+    { nameKey: "israel" as const },
+    { nameKey: "australia" as const, upcoming: true },
+  ];
+
   return (
     <section className="py-12">
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-h3 font-heading font-semibold text-black text-center mb-8">
-            Locations
+            {t("title")}
           </h2>
         </ScrollReveal>
         <ScrollReveal delay={100}>
           <div className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory justify-center flex-wrap">
             {LOCATIONS.map((loc) => (
               <div
-                key={loc.name}
+                key={loc.nameKey}
                 className="snap-center shrink-0 flex flex-col items-center gap-2 px-6 py-4 bg-white-pure rounded-lg shadow-card min-w-[140px]"
               >
                 <MapPinIcon />
                 <span className="text-small font-medium text-black">
-                  {loc.name}
+                  {t(loc.nameKey)}
                 </span>
                 {loc.upcoming && (
                   <span className="text-caption text-accent font-medium">
-                    Coming Soon
+                    {t("comingSoon")}
                   </span>
                 )}
               </div>

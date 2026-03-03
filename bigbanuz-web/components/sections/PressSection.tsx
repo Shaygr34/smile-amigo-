@@ -22,7 +22,12 @@ const PRESS_FEATURES: PressFeature[] = [
   },
 ];
 
-export default function PressSection() {
+interface PressSectionProps {
+  title?: string;
+  readArticleLabel?: string;
+}
+
+export default function PressSection({ title = "Press & Features", readArticleLabel = "Read Article" }: PressSectionProps) {
   if (PRESS_FEATURES.length === 0) return null;
 
   const isSingle = PRESS_FEATURES.length === 1;
@@ -32,13 +37,13 @@ export default function PressSection() {
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <h2 className="text-h2 font-heading font-bold text-black text-center mb-12">
-            Press & Features
+            {title}
           </h2>
         </ScrollReveal>
 
         {isSingle ? (
           <ScrollReveal delay={100}>
-            <SingleFeatureCard feature={PRESS_FEATURES[0]} />
+            <SingleFeatureCard feature={PRESS_FEATURES[0]} readArticleLabel={readArticleLabel} />
           </ScrollReveal>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -54,7 +59,7 @@ export default function PressSection() {
   );
 }
 
-function SingleFeatureCard({ feature }: { feature: PressFeature }) {
+function SingleFeatureCard({ feature, readArticleLabel = "Read Article" }: { feature: PressFeature; readArticleLabel?: string }) {
   return (
     <a
       href={feature.url}
@@ -84,7 +89,7 @@ function SingleFeatureCard({ feature }: { feature: PressFeature }) {
           </p>
         )}
         <span className="inline-flex items-center gap-2 text-small font-semibold text-sun">
-          Read Article
+          {readArticleLabel}
           <svg
             className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-normal"
             fill="none"

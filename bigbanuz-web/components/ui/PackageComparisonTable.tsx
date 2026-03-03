@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { buildWhatsAppUrl } from "@/lib/utils/whatsapp";
 import { analytics } from "@/lib/utils/analytics";
@@ -18,6 +19,7 @@ interface PackageComparisonTableProps {
 }
 
 export default function PackageComparisonTable({ packages }: PackageComparisonTableProps) {
+  const t = useTranslations("Events");
   // Build union of all inclusion strings across packages
   const allFeatures: string[] = [];
   for (const pkg of packages) {
@@ -38,8 +40,8 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
       <table className="w-full min-w-[600px] border-collapse">
         <thead>
           <tr>
-            <th className="text-left p-4 text-small font-semibold text-gray-mid border-b border-gray-200 dark:border-white/10">
-              Features
+            <th className="text-start p-4 text-small font-semibold text-gray-mid border-b border-gray-200 dark:border-white/10">
+              {t("features")}
             </th>
             {packages.map((pkg) => (
               <th
@@ -54,7 +56,7 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
                 </div>
                 {pkg.featured && (
                   <span className="inline-block mt-2 bg-accent text-accent-text text-caption font-bold px-3 py-0.5 rounded-full">
-                    POPULAR
+                    {t("popular")}
                   </span>
                 )}
               </th>
@@ -82,7 +84,7 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        aria-label="Included"
+                        aria-label={t("included")}
                       >
                         <path
                           strokeLinecap="round"
@@ -92,7 +94,7 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
                         />
                       </svg>
                     ) : (
-                      <span className="text-gray-300" aria-label="Not included">
+                      <span className="text-gray-300" aria-label={t("notIncluded")}>
                         —
                       </span>
                     )}
@@ -113,7 +115,7 @@ export default function PackageComparisonTable({ packages }: PackageComparisonTa
                   size="md"
                   onClick={() => handleClick(pkg.title)}
                 >
-                  {pkg.ctaText || "Book This Package"}
+                  {pkg.ctaText || t("bookPackage")}
                 </Button>
               </td>
             ))}

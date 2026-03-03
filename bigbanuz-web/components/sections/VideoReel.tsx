@@ -53,7 +53,7 @@ function VideoCard({ clip }: { clip: VideoClip }) {
       >
         <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-normal">
           <svg
-            className="w-7 h-7 md:w-8 md:h-8 text-charcoal ml-1"
+            className="w-7 h-7 md:w-8 md:h-8 text-charcoal ms-1"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -66,16 +66,21 @@ function VideoCard({ clip }: { clip: VideoClip }) {
   );
 }
 
-export default function VideoReel() {
+interface VideoReelProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export default function VideoReel({ title = "In Motion", subtitle = "From the water to the sky — a glimpse of what I capture." }: VideoReelProps) {
   return (
     <section className="py-section bg-charcoal">
       <div className="max-w-wide mx-auto px-2 sm:px-4">
         <ScrollReveal>
           <h2 className="text-h2 font-heading font-bold text-white text-center mb-2">
-            In Motion
+            {title}
           </h2>
           <p className="text-body text-gray-mid text-center max-w-text mx-auto mb-8">
-            From the water to the sky — a glimpse of what I capture.
+            {subtitle}
           </p>
         </ScrollReveal>
 
