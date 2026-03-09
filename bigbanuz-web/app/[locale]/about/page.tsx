@@ -155,7 +155,7 @@ export default async function AboutPage({
         whatsappLabel={t("ctaGetInTouch")}
         emailLabel={t("ctaViewEvents")}
         emailHref="/events"
-        instagramLabel={t("ctaFollowBigbanuz")}
+        instagramLabel={t("ctaFollowSmileAmigo")}
         instagramHref={INSTAGRAM_URL}
       />
     </>

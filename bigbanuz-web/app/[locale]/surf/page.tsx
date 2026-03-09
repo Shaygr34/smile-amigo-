@@ -162,7 +162,7 @@ export default async function SurfPage({
 
       <CtaSection
         headline={t("ctaHeadline")}
-        instagramLabel={t("followBigbanuz")}
+        instagramLabel={t("followSmileAmigo")}
         instagramHref={INSTAGRAM_URL}
         whatsappLabel={t("whatsappMe")}
       />
