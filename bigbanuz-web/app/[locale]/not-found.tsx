@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
+import { NAV_LINKS } from "@/lib/utils/constants";
 
 export default function NotFound() {
   const t = useTranslations("NotFound");
@@ -37,18 +38,11 @@ export default function NotFound() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-small text-gray-mid">
-          <Link href="/events" className="hover:text-sun transition-colors">
-            {tNav("events")}
-          </Link>
-          <Link href="/surf" className="hover:text-sun transition-colors">
-            {tNav("surf")}
-          </Link>
-          <Link href="/stories" className="hover:text-sun transition-colors">
-            {tNav("stories")}
-          </Link>
-          <Link href="/about" className="hover:text-sun transition-colors">
-            {tNav("about")}
-          </Link>
+          {NAV_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:text-sun transition-colors">
+              {tNav(link.labelKey)}
+            </Link>
+          ))}
         </div>
       </div>
     </section>
