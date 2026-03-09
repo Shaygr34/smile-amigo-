@@ -2,16 +2,32 @@ export default function StoriesLoading() {
   return (
     <>
       {/* Header skeleton */}
-      <section className="pt-32 pb-16">
+      <section className="pt-32 pb-8">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="h-10 w-40 bg-gray-light animate-pulse rounded mx-auto mb-4" />
           <div className="h-5 w-80 bg-gray-light animate-pulse rounded mx-auto" />
         </div>
       </section>
 
-      {/* Grid skeleton */}
+      {/* Social grid skeleton */}
+      <section className="py-section">
+        <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <div className="h-8 w-56 bg-gray-light animate-pulse rounded" />
+            <div className="h-4 w-24 bg-gray-light animate-pulse rounded" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="aspect-square bg-gray-light animate-pulse rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Field Notes skeleton */}
       <section className="pb-section">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-8 w-40 bg-gray-light animate-pulse rounded mb-8" />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="rounded-xl overflow-hidden bg-white-pure shadow-card">
