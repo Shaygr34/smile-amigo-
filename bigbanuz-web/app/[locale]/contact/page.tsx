@@ -101,12 +101,12 @@ export default async function ContactPage({
                 </p>
               </a>
 
-              {/* Instagram Card */}
+              {/* Instagram Card — prominent */}
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-pink-50 dark:bg-pink-950/40 rounded-xl p-8 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-normal text-center"
+                className="group bg-gradient-to-br from-pink-50 via-purple-50 to-orange-50 dark:from-pink-950/40 dark:via-purple-950/40 dark:to-orange-950/40 rounded-xl p-8 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-normal text-center ring-1 ring-pink-200/50 dark:ring-pink-800/30"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 dark:bg-pink-900/50 text-pink-600 dark:text-pink-400 mb-4 group-hover:scale-110 transition-transform duration-normal">
                   <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">

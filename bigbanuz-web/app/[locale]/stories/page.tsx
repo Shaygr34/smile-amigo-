@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
-import { storiesQuery } from "@/lib/sanity/queries";
+import { storiesQuery, socialHighlightsQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
 import StoryCard from "@/components/ui/StoryCard";
+import SocialGrid from "@/components/sections/SocialGrid";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export async function generateMetadata({
@@ -40,6 +41,14 @@ interface Story {
   location?: string;
 }
 
+interface SocialHighlightRaw {
+  _id: string;
+  platform: string;
+  postUrl: string;
+  thumbnail?: SanityImage;
+  caption?: string;
+}
+
 function getImageUrl(image?: SanityImage, width = 800): string {
   if (!image?.asset?._ref) return "";
   try {
@@ -59,17 +68,29 @@ export default async function StoriesPage({
   const t = await getTranslations("Stories");
 
   let stories: Story[] = [];
+  let socialHighlights: SocialHighlightRaw[] = [];
 
   try {
-    stories = await client.fetch<Story[]>(
-      storiesQuery,
-      { locale },
-      { next: { tags: ["sanity"] } }
-    );
+    [stories, socialHighlights] = await Promise.all([
+      client.fetch<Story[]>(storiesQuery, { locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<SocialHighlightRaw[]>(socialHighlightsQuery, { locale }, { next: { tags: ["sanity"] } }),
+    ]);
   } catch {
     // CMS not configured yet
   }
 
+  // Resolve social highlight image URLs
+  const resolvedHighlights = socialHighlights
+    .map((h) => ({
+      _id: h._id,
+      platform: h.platform,
+      postUrl: h.postUrl,
+      imageUrl: getImageUrl(h.thumbnail, 400),
+      caption: h.caption,
+    }))
+    .filter((h) => h.imageUrl);
+
+  // Resolve story images + blur placeholders
   const storyEntries = stories.map((story) => ({
     story,
     imageUrl: getImageUrl(story.image),
@@ -86,7 +107,8 @@ export default async function StoriesPage({
 
   return (
     <>
-      <section className="pt-32 pb-16">
+      {/* Page Header */}
+      <section className="pt-32 pb-8">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <h1 className="text-h1 font-heading font-bold text-black mb-4">
@@ -99,8 +121,23 @@ export default async function StoriesPage({
         </div>
       </section>
 
+      {/* Social Grid — Latest from Instagram */}
+      <SocialGrid
+        highlights={resolvedHighlights}
+        title={t("socialTitle")}
+      />
+
+      {/* Field Notes — Story cards */}
       <section className="pb-section">
         <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+          {storyEntries.length > 0 && (
+            <ScrollReveal>
+              <h2 className="text-h2 font-heading font-bold text-black mb-8">
+                {t("fieldNotesTitle")}
+              </h2>
+            </ScrollReveal>
+          )}
+
           {storyEntries.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {storyEntries.map((entry, i) => (

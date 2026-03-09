@@ -16,7 +16,8 @@
     "brand": "Smile Amigo",
     "followInstagram": "Follow on Instagram",
     "contactWhatsApp": "Contact on WhatsApp",
-    "copyright": "© {year} Smile Amigo. All rights reserved."
+    "copyright": "© {year} Smile Amigo. All rights reserved.",
+    "followTheJourney": "Follow the journey"
   },
   "Home": {
     "metaTitle": "Smile Amigo — Surf & Event Photography by Amit Banuz",
@@ -95,7 +96,9 @@
     "empty": "Stories coming soon. Stay tuned!",
     "fullStorySoon": "Full story coming soon.",
     "allStories": "All Stories",
-    "workWithMe": "Work With Me"
+    "workWithMe": "Work With Me",
+    "socialTitle": "Latest from Instagram",
+    "fieldNotesTitle": "Field Notes"
   },
   "About": {
     "metaTitle": "About Amit Banuz | Smile Amigo",

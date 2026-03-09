@@ -160,6 +160,22 @@ export const featuresQuery = groq`
   }
 `;
 
+// Social highlights (Instagram/TikTok curated grid)
+export const socialHighlightsQuery = groq`
+  *[_type == "socialHighlight" && featured == true] | order(sortOrder asc) {
+    _id,
+    platform,
+    postUrl,
+    thumbnail {
+      asset,
+      hotspot,
+      crop
+    },
+    caption,
+    publishedAt
+  }
+`;
+
 // About page
 export const pageAboutQuery = groq`
   *[_type == "pageAbout"][0] {

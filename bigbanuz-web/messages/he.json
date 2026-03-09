@@ -16,7 +16,8 @@
     "brand": "Smile Amigo",
     "followInstagram": "@bigbanuz באינסטגרם",
     "contactWhatsApp": "כתבו לי בוואטסאפ",
-    "copyright": "© {year} Smile Amigo. כל הזכויות שמורות."
+    "copyright": "© {year} Smile Amigo. כל הזכויות שמורות.",
+    "followTheJourney": "עקבו אחרי המסע"
   },
   "Home": {
     "metaTitle": "Smile Amigo — צילום גלישה ואירועים מאת עמית בנוז",
@@ -95,7 +96,9 @@
     "empty": "סיפורים בדרך. חכו לעדכונים!",
     "fullStorySoon": "הסיפור המלא בקרוב.",
     "allStories": "כל הסיפורים",
-    "workWithMe": "עבדו איתי"
+    "workWithMe": "עבדו איתי",
+    "socialTitle": "האחרונים מאינסטגרם",
+    "fieldNotesTitle": "מהשטח"
   },
   "About": {
     "metaTitle": "אודות עמית בנוז | Smile Amigo",
