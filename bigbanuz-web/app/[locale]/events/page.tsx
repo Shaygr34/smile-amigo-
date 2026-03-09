@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
-import { packagesQuery, galleryByLaneQuery, testimonialsByLaneQuery } from "@/lib/sanity/queries";
+import { packagesQuery, galleryByLaneQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
 import Hero from "@/components/sections/Hero";
 import PackagesSection from "@/components/sections/PackagesSection";
 import TrustSection from "@/components/sections/TrustSection";
 import GalleryGrid from "@/components/ui/GalleryGrid";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CtaSection from "@/components/sections/CtaSection";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { GalleryImage } from "@/components/ui/GalleryGrid";
@@ -73,15 +72,6 @@ interface GalleryDoc {
   }>;
 }
 
-interface Testimonial {
-  _id: string;
-  quote: string;
-  name: string;
-  context?: string;
-  avatar?: SanityImage;
-}
-
-
 function getImageUrl(image?: SanityImage, width = 800): string {
   if (!image?.asset?._ref) return "";
   try {
@@ -102,13 +92,10 @@ export default async function EventsPage({
 
   let packages: Package[] = [];
   let galleries: GalleryDoc[] = [];
-  let testimonials: Testimonial[] = [];
-
   try {
-    [packages, galleries, testimonials] = await Promise.all([
+    [packages, galleries] = await Promise.all([
       client.fetch<Package[]>(packagesQuery, { locale }, { next: { tags: ["sanity"] } }),
       client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "events", locale }, { next: { tags: ["sanity"] } }),
-      client.fetch<Testimonial[]>(testimonialsByLaneQuery, { lane: "events", locale }, { next: { tags: ["sanity"] } }),
     ]);
   } catch {
     // CMS not configured yet
@@ -136,14 +123,6 @@ export default async function EventsPage({
     }
   }
 
-  const displayTestimonials = testimonials.map((tm) => ({
-    _id: tm._id,
-    quote: tm.quote,
-    name: tm.name,
-    context: tm.context,
-    avatarUrl: getImageUrl(tm.avatar, 80),
-  }));
-
   const heroSource = galleries[0]?.images?.[0]?.image;
   const eventsHeroUrl = galleryEntries.length > 0 ? getImageUrl(heroSource, 1920) : "";
 
@@ -170,8 +149,6 @@ export default async function EventsPage({
       priceValidUntil: new Date(new Date().getFullYear() + 1, 0, 1).toISOString().split("T")[0],
     },
   }));
-
-  const tHome = await getTranslations("Home");
 
   return (
     <>
@@ -211,8 +188,6 @@ export default async function EventsPage({
           </div>
         </section>
       )}
-
-      <TestimonialsSection testimonials={displayTestimonials} title={tHome("testimonialsTitle")} />
 
       <CtaSection
         headline={t("ctaHeadline")}
