@@ -81,54 +81,6 @@ interface Testimonial {
   avatar?: SanityImage;
 }
 
-const FALLBACK_PACKAGES: Package[] = [
-  {
-    _id: "basic",
-    title: "BASIC",
-    priceDisplay: "₪1,500",
-    priceILS: 1500,
-    inclusions: [
-      "Stills only",
-      "Up to 4 hours",
-      "Edited highlights",
-      "Full-res digital gallery",
-    ],
-    ctaText: "Book This Package",
-    featured: false,
-    sortOrder: 1,
-  },
-  {
-    _id: "plus",
-    title: "PLUS",
-    priceDisplay: "₪2,500",
-    priceILS: 2500,
-    inclusions: [
-      "Stills + magnets service",
-      "Event coverage",
-      "Magnet prints during event",
-      "Full-res digital gallery",
-    ],
-    ctaText: "Book This Package",
-    featured: true,
-    sortOrder: 2,
-  },
-  {
-    _id: "premium",
-    title: "PREMIUM",
-    priceDisplay: "₪4,500",
-    priceILS: 4500,
-    inclusions: [
-      "Stills + magnets + video",
-      "Full event coverage",
-      "Highlights film",
-      "Optional album add-on",
-      "Full-res digital gallery",
-    ],
-    ctaText: "Book This Package",
-    featured: false,
-    sortOrder: 3,
-  },
-];
 
 function getImageUrl(image?: SanityImage, width = 800): string {
   if (!image?.asset?._ref) return "";
@@ -162,7 +114,7 @@ export default async function EventsPage({
     // CMS not configured yet
   }
 
-  const displayPackages = packages.length > 0 ? packages : FALLBACK_PACKAGES;
+  const displayPackages = packages;
 
   const galleryEntries: { galleryImage: GalleryImage; source: SanityImage }[] = [];
   for (const gallery of galleries) {

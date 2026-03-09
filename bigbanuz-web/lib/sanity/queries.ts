@@ -160,6 +160,27 @@ export const featuresQuery = groq`
   }
 `;
 
+// About page
+export const pageAboutQuery = groq`
+  *[_type == "pageAbout"][0] {
+    "headline": coalesce(headline[$locale], headline.en),
+    "subline": coalesce(subline[$locale], subline.en),
+    "bio": coalesce(bio[$locale], bio.en),
+    "approachTitle": coalesce(approachTitle[$locale], approachTitle.en),
+    "approach": coalesce(approach[$locale], approach.en),
+    locations[] {
+      name,
+      "description": coalesce(description[$locale], description.en),
+      status
+    },
+    heroImage {
+      asset,
+      hotspot,
+      crop
+    }
+  }
+`;
+
 // Site settings SEO (consumed by layout metadata)
 export const siteSettingsSeoQuery = groq`
   *[_type == "siteSettings"][0] {

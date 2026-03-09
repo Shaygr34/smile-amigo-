@@ -35,9 +35,22 @@ export default defineType({
     defineField({
       name: "body",
       title: "Body",
-      type: "text",
-      rows: 20,
-      description: "Full story content. Paragraph breaks are preserved.",
+      type: "array",
+      of: [{ type: "block" }],
+      description: "Full story content with rich text formatting.",
+    }),
+    defineField({
+      name: "language",
+      title: "Language",
+      type: "string",
+      options: {
+        list: [
+          { title: "English", value: "en" },
+          { title: "Hebrew", value: "he" },
+        ],
+      },
+      initialValue: "en",
+      description: "Content language for locale-filtered display.",
     }),
     defineField({
       name: "publishedAt",

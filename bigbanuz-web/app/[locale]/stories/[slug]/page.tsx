@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { client } from "@/lib/sanity/client";
 import { storyBySlugQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
+import { PortableText, type PortableTextBlock } from "@portabletext/react";
 import Button from "@/components/ui/Button";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -19,7 +20,7 @@ interface Story {
   slug: { current: string };
   image?: SanityImage;
   shortDescription?: string;
-  body?: string;
+  body?: PortableTextBlock[] | string;
   publishedAt?: string;
   location?: string;
 }
@@ -158,9 +159,15 @@ export default async function StoryDetailPage({
         <div className="max-w-text mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             {story.body ? (
-              <div className="text-body text-gray-mid leading-relaxed whitespace-pre-line">
-                {story.body}
-              </div>
+              Array.isArray(story.body) ? (
+                <div className="prose prose-lg max-w-none text-gray-mid">
+                  <PortableText value={story.body} />
+                </div>
+              ) : (
+                <div className="text-body text-gray-mid leading-relaxed whitespace-pre-line">
+                  {story.body}
+                </div>
+              )
             ) : (
               <p className="text-body text-gray-mid italic">
                 {t("fullStorySoon")}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
-import { galleryByLaneQuery } from "@/lib/sanity/queries";
+import { pageAboutQuery, galleryByLaneQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
 import Hero from "@/components/sections/Hero";
 import CtaSection from "@/components/sections/CtaSection";
@@ -41,6 +41,20 @@ interface GalleryDoc {
   }>;
 }
 
+interface AboutData {
+  headline?: string;
+  subline?: string;
+  bio?: string;
+  approachTitle?: string;
+  approach?: string;
+  locations?: Array<{
+    name: string;
+    description?: string;
+    status?: string;
+  }>;
+  heroImage?: SanityImage;
+}
+
 function getImageUrl(image?: SanityImage, width = 800): string {
   if (!image?.asset?._ref) return "";
   try {
@@ -59,30 +73,46 @@ export default async function AboutPage({
   setRequestLocale(locale);
   const t = await getTranslations("About");
 
+  let aboutData: AboutData | null = null;
   let heroUrl = "";
   let heroBlur = "";
 
   try {
-    const galleries = await client.fetch<GalleryDoc[]>(
-      galleryByLaneQuery,
-      { lane: "surf", locale },
-      { next: { tags: ["sanity"] } }
-    );
-    const firstImage = galleries?.[0]?.images?.[0]?.image;
-    heroUrl = getImageUrl(firstImage, 1920);
-    if (firstImage?.asset?._ref) {
-      heroBlur = await getBlurDataURL(firstImage);
+    const [about, galleries] = await Promise.all([
+      client.fetch<AboutData | null>(pageAboutQuery, { locale }, { next: { tags: ["sanity"] } }),
+      client.fetch<GalleryDoc[]>(galleryByLaneQuery, { lane: "surf", locale }, { next: { tags: ["sanity"] } }),
+    ]);
+    aboutData = about;
+
+    // Hero: prefer CMS heroImage, fall back to first surf gallery image
+    const heroSource = aboutData?.heroImage || galleries?.[0]?.images?.[0]?.image;
+    heroUrl = getImageUrl(heroSource, 1920);
+    if (heroSource?.asset?._ref) {
+      heroBlur = await getBlurDataURL(heroSource);
     }
   } catch {
     // CMS not configured yet
   }
 
-  const locations = [
-    { name: t("locationPhilippines"), description: t("locationPhilippinesDesc") },
-    { name: t("locationSriLanka"), description: t("locationSriLankaDesc") },
-    { name: t("locationIsrael"), description: t("locationIsraelDesc") },
-    { name: t("locationAustralia"), description: t("locationAustraliaDesc") },
-  ];
+  // CMS-first with i18n fallback
+  const headline = aboutData?.headline || t("heroHeadline");
+  const subline = aboutData?.subline || t("heroSubline");
+  const bioParagraphs = aboutData?.bio
+    ? aboutData.bio.split("\n\n").filter(Boolean)
+    : [t("storyP1"), t("storyP2"), t("storyP3")];
+  const approachTitle = aboutData?.approachTitle || t("approachTitle");
+  const approachParagraphs = aboutData?.approach
+    ? aboutData.approach.split("\n\n").filter(Boolean)
+    : [t("approachP1"), t("approachP2")];
+
+  const locations = aboutData?.locations?.length
+    ? aboutData.locations
+    : [
+        { name: t("locationPhilippines"), description: t("locationPhilippinesDesc") },
+        { name: t("locationSriLanka"), description: t("locationSriLankaDesc") },
+        { name: t("locationIsrael"), description: t("locationIsraelDesc") },
+        { name: t("locationAustralia"), description: t("locationAustraliaDesc"), status: "coming-soon" },
+      ];
 
   return (
     <>
@@ -90,8 +120,8 @@ export default async function AboutPage({
         imageUrl={heroUrl}
         imageAlt={t("heroImageAlt")}
         blurDataURL={heroBlur}
-        headline={t("heroHeadline")}
-        subline={t("heroSubline")}
+        headline={headline}
+        subline={subline}
       />
 
       {/* Story Section */}
@@ -102,9 +132,9 @@ export default async function AboutPage({
               {t("storyTitle")}
             </h2>
             <div className="space-y-6 text-body text-gray-mid leading-relaxed">
-              <p>{t("storyP1")}</p>
-              <p>{t("storyP2")}</p>
-              <p>{t("storyP3")}</p>
+              {bioParagraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </ScrollReveal>
         </div>
@@ -128,6 +158,11 @@ export default async function AboutPage({
                   <p className="text-small text-gray-mid">
                     {loc.description}
                   </p>
+                  {loc.status === "coming-soon" && (
+                    <span className="inline-block mt-2 text-caption text-accent font-medium">
+                      {t("locationAustraliaDesc").includes("2026") ? t("locationAustraliaDesc") : ""}
+                    </span>
+                  )}
                 </div>
               </ScrollReveal>
             ))}
@@ -140,11 +175,12 @@ export default async function AboutPage({
         <div className="max-w-text mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
             <h2 className="text-h2 font-heading font-bold text-black mb-8">
-              {t("approachTitle")}
+              {approachTitle}
             </h2>
             <div className="space-y-6 text-body text-gray-mid leading-relaxed">
-              <p>{t("approachP1")}</p>
-              <p>{t("approachP2")}</p>
+              {approachParagraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </ScrollReveal>
         </div>

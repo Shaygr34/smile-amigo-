@@ -1,5 +1,6 @@
 import siteSettings from "./siteSettings";
 import pageHome from "./pageHome";
+import pageAbout from "./pageAbout";
 import packages from "./packages";
 import gallery from "./gallery";
 import testimonial from "./testimonial";
@@ -11,6 +12,7 @@ import feature from "./feature";
 export const schemaTypes = [
   siteSettings,
   pageHome,
+  pageAbout,
   packages,
   gallery,
   testimonial,
