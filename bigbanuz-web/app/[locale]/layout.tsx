@@ -89,7 +89,7 @@ export async function generateMetadata({
     title: seoTitle,
     description: seoDescription,
     metadataBase: new URL(
-      process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.vercel.app"
+      process.env.NEXT_PUBLIC_SITE_URL || "https://smile-amigo.vercel.app"
     ),
     openGraph: {
       title: seoTitle,
@@ -160,7 +160,7 @@ export default async function LocaleLayout({
   }
 
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://bigbanuz.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://smile-amigo.vercel.app";
 
   const jsonLd = {
     "@context": "https://schema.org",

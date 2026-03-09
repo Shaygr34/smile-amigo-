@@ -19,7 +19,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     openGraph: {
-      images: [{ url: "/og-default.jpg", width: 1200, height: 630 }],
+      images: [{ url: "/og-stories.jpg", width: 1200, height: 630 }],
     },
     alternates: {
       languages: { en: "/en/stories", he: "/he/stories" },

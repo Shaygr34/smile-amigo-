@@ -39,7 +39,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     openGraph: {
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
+      images: [{ url: ogImage || "/og-surf.jpg", width: 1200, height: 630 }],
     },
     alternates: {
       languages: { en: "/en/surf", he: "/he/surf" },
