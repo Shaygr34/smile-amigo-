@@ -61,10 +61,23 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Copyright */}
-          <p className="text-white/50 text-small">
-            {t("copyright", { year: currentYear })}
-          </p>
+          {/* Copyright + Dodeca credit */}
+          <div className="text-center md:text-right">
+            <p className="text-white/50 text-small">
+              {t("copyright", { year: currentYear })}
+            </p>
+            <p className="text-white/30 text-caption mt-1">
+              Built by{" "}
+              <a
+                href="https://dodeca.co.il"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white/50 transition-colors duration-normal"
+              >
+                Dodeca
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

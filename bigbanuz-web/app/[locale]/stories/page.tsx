@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { client } from "@/lib/sanity/client";
-import { storiesQuery, socialHighlightsQuery } from "@/lib/sanity/queries";
+import { storiesQuery } from "@/lib/sanity/queries";
 import { urlFor, getBlurDataURL } from "@/lib/sanity/image";
 import StoryCard from "@/components/ui/StoryCard";
-import SocialGrid from "@/components/sections/SocialGrid";
+import SocialFeed from "@/components/sections/SocialFeed";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export async function generateMetadata({
@@ -41,14 +41,6 @@ interface Story {
   location?: string;
 }
 
-interface SocialHighlightRaw {
-  _id: string;
-  platform: string;
-  postUrl: string;
-  thumbnail?: SanityImage;
-  caption?: string;
-}
-
 function getImageUrl(image?: SanityImage, width = 800): string {
   if (!image?.asset?._ref) return "";
   try {
@@ -68,27 +60,12 @@ export default async function StoriesPage({
   const t = await getTranslations("Stories");
 
   let stories: Story[] = [];
-  let socialHighlights: SocialHighlightRaw[] = [];
 
   try {
-    [stories, socialHighlights] = await Promise.all([
-      client.fetch<Story[]>(storiesQuery, { locale }, { next: { tags: ["sanity"] } }),
-      client.fetch<SocialHighlightRaw[]>(socialHighlightsQuery, { locale }, { next: { tags: ["sanity"] } }),
-    ]);
+    stories = await client.fetch<Story[]>(storiesQuery, { locale }, { next: { tags: ["sanity"] } });
   } catch {
     // CMS not configured yet
   }
-
-  // Resolve social highlight image URLs
-  const resolvedHighlights = socialHighlights
-    .map((h) => ({
-      _id: h._id,
-      platform: h.platform,
-      postUrl: h.postUrl,
-      imageUrl: getImageUrl(h.thumbnail, 400),
-      caption: h.caption,
-    }))
-    .filter((h) => h.imageUrl);
 
   // Resolve story images + blur placeholders
   const storyEntries = stories.map((story) => ({
@@ -121,11 +98,8 @@ export default async function StoriesPage({
         </div>
       </section>
 
-      {/* Social Grid — Latest from Instagram */}
-      <SocialGrid
-        highlights={resolvedHighlights}
-        title={t("socialTitle")}
-      />
+      {/* Instagram Feed — Latest from @bigbanuz */}
+      <SocialFeed />
 
       {/* Field Notes — Story cards */}
       <section className="pb-section">

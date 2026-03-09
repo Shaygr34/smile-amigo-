@@ -32,8 +32,8 @@ Dual-lane: Events (Israel, Hebrew-primary) + Surf (international, English-primar
 8. Schema deploy: `cd sanity && npx sanity@latest schema deploy`
 9. GROQ i18n pattern: `coalesce(field[$locale], field)` for flat strings, `coalesce(field[$locale], field.en)` for bilingual objects
 
-## Schema Types (11)
-siteSettings, pageHome, pageAbout, packages, gallery, testimonial, lead, productPrint, story, feature, socialHighlight
+## Schema Types (10)
+siteSettings, pageHome, pageAbout, packages, gallery, testimonial, lead, productPrint, story, feature
 
 ## V3 Status
 All milestones complete (M0–M5). See docs/v3-scope.md for details and manual steps.
